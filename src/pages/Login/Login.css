@@ -1,0 +1,64 @@
+.login-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-logo-container{
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-logo-icon{
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+
+.login-logo-text{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.login-intro{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.login-form-container{
+    margin-top: 20px;
+}
+
+.login-form-button{
+    width: 100%;
+    cursor: pointer;
+}
+
+.login-form-button-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form-divider{
+    width: 100%;
+    height: 1px;
+    margin-top: 20px;
+}
+
+.register-container{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import 'rsuite/dist/rsuite.min.css';
+import Appbar from './components/Appbar/Appbar';
+import Sidebar from './components/Sidebar/Sidebar';
+import { CustomProvider } from 'rsuite';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import Login from './pages/Login/Login';
 
 function App() {
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CustomProvider theme={theme}>
+      <Appbar theme={theme} setTheme={setTheme}/>
+      <div className="App">
+        <BrowserRouter>
+          <Sidebar>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </Sidebar>
+        </BrowserRouter>
+      </div>
+    </CustomProvider>
   );
 }
 

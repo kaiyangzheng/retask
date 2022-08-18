@@ -1,0 +1,21 @@
+.logo-container{
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.menu-icon{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.logo-text{
+    font-size: 20px;
+    font-weight: bold;
+}
