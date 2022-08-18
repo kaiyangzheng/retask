@@ -10,6 +10,7 @@ import {
   Route,
 } from 'react-router-dom';
 import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -22,6 +23,7 @@ function App() {
           <Sidebar>
             <Routes>
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
           </Sidebar>
         </BrowserRouter>

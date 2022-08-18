@@ -33,6 +33,8 @@
 .login-intro{
     font-size: 30px;
     font-weight: bold;
+    width: 300px;
+    text-align: center;
 }
 
 .login-form-container{
