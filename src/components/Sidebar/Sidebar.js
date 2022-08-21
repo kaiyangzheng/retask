@@ -35,14 +35,14 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
             display: 'flex',
         }}>
             <div style={{
-                width: 240,
+                width: expanded ? 240 : 50,
             }}>
                 <Sidenav expanded={expanded} appearance="subtle" style={{
                     display: loginInfo.isLoggedIn ? 'block' : 'none',
                 }}>
                     <Sidenav.Toggle expanded={expanded} onToggle={expanded => setExpanded(expanded)} style={{
                                 color: navColor,    
-                                }}/>
+                                }} />
                     <Sidenav.Body>
                         <Nav>
                             <Nav.Item eventKey="home" as={Link} to="/home" icon={<HomeIcon style={{

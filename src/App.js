@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import Home from './pages/Home/Home';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -54,6 +55,9 @@ function App() {
               />}/>
               <Route path="/register" element={<Register 
                 setLoginInfo={setLoginInfo}
+              />} />
+              <Route path="/home" element={<Home
+                loginInfo={loginInfo}
               />} />
             </Routes>
           </Sidebar>

@@ -1,0 +1,38 @@
+.greeting-panel{
+    width: 100%;
+    padding: 20px;
+    align-self: stretch;
+    margin: 0px 20px;
+    flex: 2;
+}
+
+.greeting-container{
+    display: flex;
+    align-items: center;
+}
+
+.greeting-content{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.greeting-svg{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.quote{
+    margin-top: 10px;
+}
+
+.quote-icon{
+    font-size: 30px;
+}
+
+@media screen and (max-width: 1440px){
+    .greeting-container{
+        flex-direction: column;
+    }
+}

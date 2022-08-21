@@ -1,0 +1,39 @@
+.modify-group-panel{
+    width: 100%;
+    padding: 20px;
+    align-self: stretch;
+    margin: 0px 20px;
+    flex: 1;
+}
+
+.modify-button-group{
+    display: flex;
+    margin-top: 20px;
+}
+
+.modify-button-group > *{
+    flex: 1;
+    margin: 0px 10px;
+}
+
+/* @media screen and (max-width: 1440px){
+    .modify-button-group{
+        flex-direction: column;
+    }
+
+    .modify-button-group > *{
+        margin: 0px;
+        margin-bottom: 10px;
+    }
+}
+    
+@media screen and (max-width: 768px){
+    .modify-button-group{
+        flex-direction: row;
+    }   
+
+    .modify-button-group > *{
+        flex: 1;
+        margin: 0px 10px;
+    }
+} */
