@@ -1,12 +1,27 @@
-.home-top-container{
-    width: 100%;
+.home-container{
+    max-width: 100%;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+}
+
+.home-intro-container{
+    display: flex;
+    margin-top: 20px;
+}
+
+.home-chart-container{
+    display: flex;
+    margin-top: 20px;
+}
+
+.home-table-container{
+    display: flex;
     margin-top: 20px;
 }
 
 @media screen and (max-width: 768px){
-    .home-top-container{
+    .home-intro-container{
         flex-direction: column;
+        margin-right: 40px;
     }
 }

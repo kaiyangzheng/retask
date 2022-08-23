@@ -8,7 +8,6 @@
 
 .greeting-container{
     display: flex;
-    align-items: center;
 }
 
 .greeting-content{
@@ -21,6 +20,7 @@
     flex: 1;
     display: flex;
     justify-content: center;
+    margin-top: 10px;
 }
 
 .quote{
@@ -34,5 +34,16 @@
 @media screen and (max-width: 1440px){
     .greeting-container{
         flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .greeting-panel{
+        margin-bottom: 20px;
+    }
+
+    .greeting-content{
+        align-items: center;
+        text-align: center ;
     }
 }

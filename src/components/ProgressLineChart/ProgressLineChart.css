@@ -1,0 +1,26 @@
+.progress-line-chart-panel{
+    width: 100%;
+    padding: 20px;
+    margin: 0px 20px;
+}
+
+.progress-line-chart-content{
+    display: flex;
+    align-items: center;
+}
+
+.progress-line-chart-plot{
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 425px){
+    .progress-line-chart-panel{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .progress-line-chart-content{
+        justify-content: center;
+    }
+}

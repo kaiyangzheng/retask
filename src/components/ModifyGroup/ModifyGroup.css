@@ -6,6 +6,12 @@
     flex: 1;
 }
 
+.modify-group-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .modify-button-group{
     display: flex;
     margin-top: 20px;
@@ -13,8 +19,31 @@
 
 .modify-button-group > *{
     flex: 1;
-    margin: 0px 10px;
+    margin-right: 10px;
 }
+
+.modify-group-svg{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+@media screen and (min-width: 1800px){
+    .modify-group-svg{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .modify-group-container{
+       align-items: center;
+    }
+
+    .modify-button{
+        width: 75px;
+    }
+}
+
 
 /* @media screen and (max-width: 1440px){
     .modify-button-group{

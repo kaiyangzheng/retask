@@ -1,13 +1,25 @@
 import React from 'react'
 import Greeting from '../../components/Greeting/Greeting';
 import Modifygroup from '../../components/ModifyGroup/ModifyGroup';
+import ProgressLineChart from '../../components/ProgressLineChart/ProgressLineChart';
+import TaskTable from '../../components/TaskTable/TaskTable';
 import './Home.css';
 
-export default function Home({ loginInfo }) {
+export default function Home({ loginInfo, currentTime, user, reviewSessions, tasks, taskTypes, dataLoaded }) {
   return (
-    <div className="home-top-container">
+    <>
+    <div className="home-container">
+      <div className="home-intro-container">
         <Greeting loginInfo={loginInfo} />
-        <Modifygroup />
+        <Modifygroup loginInfo={loginInfo} />
+      </div>
+      <div className="home-chart-container">
+        <ProgressLineChart reviewSessions={reviewSessions} dataLoaded={dataLoaded} />
+      </div>
+      <div className="home-table-container">
+        <TaskTable tasks={tasks} taskTypes={taskTypes} dataLoaded={dataLoaded} currentTime={currentTime} user={user}/>
+      </div>
     </div>
+    </>
   )
 }

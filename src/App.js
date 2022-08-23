@@ -12,6 +12,14 @@ import {
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
+import {
+  getUser,
+  getTasks,
+  getGoals,
+  getReviewSessions,
+  getFriendRequests,
+  getTaskTypes
+} from './utils/getData';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -22,6 +30,41 @@ function App() {
     access: '',
     refresh: '',
   });
+  const [currentTime, setCurrentTime] = useState();
+
+  // data 
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [tasks, setTasks] = useState([]);
+  const [user, setUser] = useState({});
+  const [goals, setGoals] = useState({});
+  const [reviewSessions, setReviewSessions] = useState([]);
+  const [friendRequests, setFriendRequests] = useState([]);
+  const [taskTypes, setTaskTypes] = useState([]);
+
+  useEffect(()=>{
+    const timer = setInterval(()=>{
+      setCurrentTime(new Date().toLocaleString());
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    }
+  }, [])
+
+  useEffect(() => {
+    const getData = async () => {
+      await getUser(setUser);
+      await getTasks(setTasks);
+      await getGoals(setGoals);
+      await getReviewSessions(setReviewSessions);
+      await getFriendRequests(setFriendRequests);
+      await getTaskTypes(setTaskTypes);
+      setDataLoaded(true);
+    }
+    if (loginInfo.isLoggedIn){
+      getData();
+    }
+  }, [loginInfo]);
   
   useEffect(()=>{
     if (theme === 'light'){
@@ -40,9 +83,10 @@ function App() {
         refresh: localStorage.getItem('refresh_token'),
       })
     } 
-  }, [])
-  
+  }, [])  
+
   document.title = 'Retask';
+
   return (
     <CustomProvider theme={theme}>
       <div className="App">
@@ -58,6 +102,12 @@ function App() {
               />} />
               <Route path="/home" element={<Home
                 loginInfo={loginInfo}
+                dataLoaded={dataLoaded}
+                currentTime={currentTime}
+                user={user}
+                reviewSessions={reviewSessions}
+                tasks={tasks}
+                taskTypes={taskTypes}
               />} />
             </Routes>
           </Sidebar>
