@@ -121,7 +121,7 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded }) {
   }
   
   useEffect(()=>{
-    if (dataLoaded){
+    if (dataLoaded && reviewSessions.length > 0){
         if (timeframe === 'week'){
             setChartData(createWeeklyData());
             setChartStrokeColor('#8884d8');
@@ -140,6 +140,7 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded }) {
         }
     }
   }, [reviewSessions, timeframe, dataLoaded])
+
 
   return (
     <Panel bordered className="progress-line-chart-panel">

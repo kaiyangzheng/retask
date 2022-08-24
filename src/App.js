@@ -12,6 +12,8 @@ import {
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
+import AddModal from './components/Modals/AddModal/AddModal';
+import ReviewModal from './components/Modals/ReviewModal/ReviewModal';
 import {
   getUser,
   getTasks,
@@ -31,6 +33,7 @@ function App() {
     refresh: '',
   });
   const [currentTime, setCurrentTime] = useState();
+  const [reloadData, setReloadData] = useState(0);
 
   // data 
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -40,6 +43,14 @@ function App() {
   const [reviewSessions, setReviewSessions] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
   const [taskTypes, setTaskTypes] = useState([]);
+
+  // modal 
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [openReviewModal, setOpenReviewModal] = useState(false);
+
+  // task actions
+  const [reviewTaskId, setReviewTaskId] = useState(null);
+  const [reviewSessionId, setReviewSessionId] = useState(null);
 
   useEffect(()=>{
     const timer = setInterval(()=>{
@@ -62,9 +73,10 @@ function App() {
       setDataLoaded(true);
     }
     if (loginInfo.isLoggedIn){
+
       getData();
     }
-  }, [loginInfo]);
+  }, [loginInfo, reloadData]);
   
   useEffect(()=>{
     if (theme === 'light'){
@@ -85,11 +97,11 @@ function App() {
     } 
   }, [])  
 
-  document.title = 'Retask';
-
   return (
     <CustomProvider theme={theme}>
       <div className="App">
+        <AddModal openAddModal={openAddModal} setOpenAddModal={setOpenAddModal} reloadData={reloadData} setReloadData={setReloadData} setOpenReviewModal={setOpenReviewModal} setReviewTaskId={setReviewTaskId} setReviewSessionId={setReviewSessionId}/>
+        <ReviewModal openReviewModal={openReviewModal} setOpenReviewModal={setOpenReviewModal} reloadData={reloadData} setReloadData={setReloadData} reviewTaskId={reviewTaskId} reviewSessionId={reviewSessionId} tasks={tasks}/>
         <BrowserRouter>
         <Appbar theme={theme} setTheme={setTheme} navColor={navColor} loginInfo={loginInfo}/>
           <Sidebar navColor={navColor} loginInfo={loginInfo} setLoginInfo={setLoginInfo}>
@@ -108,6 +120,13 @@ function App() {
                 reviewSessions={reviewSessions}
                 tasks={tasks}
                 taskTypes={taskTypes}
+                openAddModal={openAddModal}
+                setOpenAddModal={setOpenAddModal}
+                reloadData={reloadData}
+                setReloadData={setReloadData}
+                setReviewTaskId={setReviewTaskId}
+                setReviewSessionId={setReviewSessionId}
+                setOpenReviewModal={setOpenReviewModal}
               />} />
             </Routes>
           </Sidebar>

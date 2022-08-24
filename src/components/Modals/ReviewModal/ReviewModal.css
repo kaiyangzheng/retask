@@ -1,0 +1,31 @@
+.instructions-container{
+    margin-top: 10px;
+}
+
+.review-form-container{
+    margin-top: 10px;
+}
+
+.review-modal-footer{
+    display: flex; 
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.review-modal-timer-container{
+    display: flex;
+    align-items: flex-end;
+}
+
+.pause-play-btn{
+    margin-right: 10px;
+}
+
+.review-task-stats{
+    display: flex;
+    flex-direction: column;
+}
+
+.review-modal-footer-btn-container{
+    margin-top: 20px;
+}
