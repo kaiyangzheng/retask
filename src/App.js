@@ -9,6 +9,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
+import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
@@ -47,10 +48,12 @@ function App() {
   // modal 
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openReviewModal, setOpenReviewModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
 
   // task actions
   const [reviewTaskId, setReviewTaskId] = useState(null);
   const [reviewSessionId, setReviewSessionId] = useState(null);
+  const [editTaskId, setEditTaskId] = useState(null);
 
   useEffect(()=>{
     const timer = setInterval(()=>{
@@ -73,7 +76,6 @@ function App() {
       setDataLoaded(true);
     }
     if (loginInfo.isLoggedIn){
-
       getData();
     }
   }, [loginInfo, reloadData]);
@@ -106,6 +108,7 @@ function App() {
         <Appbar theme={theme} setTheme={setTheme} navColor={navColor} loginInfo={loginInfo}/>
           <Sidebar navColor={navColor} loginInfo={loginInfo} setLoginInfo={setLoginInfo}>
             <Routes>
+              <Route path="/" element={<Landing loginInfo={loginInfo}/>}/>
               <Route path="/login" element={<Login
                 setLoginInfo={setLoginInfo}
               />}/>
