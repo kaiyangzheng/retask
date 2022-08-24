@@ -7,8 +7,8 @@ export default function Landing({loginInfo}) {
   const navigate = useNavigate();
   // delete when landing page is done
   useEffect(()=>{
-    if (loginInfo.isLoggedIn){
-        navigate('/home');  
+    if (localStorage.getItem('isLoggedIn')){
+        navigate('/home');
     }else{
         navigate('/login');
     }
