@@ -13,7 +13,7 @@ import { stringToColor } from '../../../utils/colorHelpers';
 import StatusPill from '../../StatusPill/StatusPill';
 import EditIcon from '@rsuite/icons/Edit';
 import TrashIcon from '@rsuite/icons/Trash';
-import HeartO from '@rsuite/icons/legacy/HeartO';
+import {AiFillHeart, AiOutlineHeart} from 'react-icons/ai'
 import axiosInstance from '../../../utils/axiosAPI';
 import './ModifyModal.css';
 
@@ -35,7 +35,21 @@ export default function ModifyModal({tasks, taskTypes, user, currentTime, dataLo
   }
 
   const handleDelete = async (taskId) => {
-    return axiosInstance.delete(`api/v1/task/${taskId}/`)
+    return axiosInstance.delete(`/api/v1/task/${taskId}/`)
+    .then(res=>{
+        console.log(res);
+        setReloadData(!reloadData);
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+  }
+
+  const handleFavorite = async (taskId, name, favorite) => {
+    return axiosInstance.put(`/api/v1/task/${taskId}/`, {
+        'name': name,
+        'favorite': favorite 
+    })
     .then(res=>{
         console.log(res);
         setReloadData(!reloadData);
@@ -57,7 +71,11 @@ export default function ModifyModal({tasks, taskTypes, user, currentTime, dataLo
   }, [filteredTasks])
 
   useEffect(()=>{
-    setFilteredTasks(tasks);
+    let newTasks = tasks;
+    newTasks.sort((a,b)=>{
+        return new Date(a.date_added) - new Date(b.date_added);
+    })
+    setFilteredTasks(newTasks);
   }, [dataLoaded, tasks])
 
   useEffect(()=>{
@@ -67,6 +85,9 @@ export default function ModifyModal({tasks, taskTypes, user, currentTime, dataLo
             filteredTasks.push(tasks[i]);
         }
     }
+    filteredTasks.sort((a,b)=>{
+        return new Date(a.date_added) - new Date(b.date_added);
+    })
     setFilteredTasks(filteredTasks);
   }, [filterValue])
 
@@ -161,7 +182,10 @@ export default function ModifyModal({tasks, taskTypes, user, currentTime, dataLo
                                     backgroundColor: '#e15241',
                                     color: 'white',
                                 }} onClick={()=>handleDelete(rowData.id)}/>}
-                                {type=="Favorite" && <HeartO className="modify-favorite-btn"/>}
+                                {type=="Favorite" && 
+                                <div>
+                                    {rowData.favorite ? <AiFillHeart className="modify-favorite-btn" onClick={()=>handleFavorite(rowData.id, rowData.name, false)}/> : <AiOutlineHeart className="modify-favorite-btn" onClick={()=>handleFavorite(rowData.id, rowData.name, true)}/>}
+                                </div>}
                                 </>
                             }}
                         </Cell>

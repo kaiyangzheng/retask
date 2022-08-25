@@ -87,7 +87,7 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
             { !dataLoaded ? 
                 <Placeholder.Graph rows={5} columns={5} /> :
                 <Table
-                    data={tasks}
+                    data={tasks.sort((a,b)=>{return new Date(a.date_added)-new Date(b.date_added)})}
                     bordered
                     height={tableHeight}
                 >
@@ -134,7 +134,7 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
                                 <span>
                                     {rowData.next_review_date == null ? 'None' : 
                                     <span>
-                                        {convertUtcToLocal(rowData.next_review_date)} ({rowData.interval} days)
+                                        {convertUtcToLocal(rowData.next_review_date)} ({Math.ceil((new Date(rowData.next_review_date) - new Date(currentTime))/(1000*60*60*24))} days)
                                     </span>
                                     }
                                 </span>

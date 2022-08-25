@@ -40,9 +40,9 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
                 <Sidenav expanded={expanded} appearance="subtle" style={{
                     display: loginInfo.isLoggedIn ? 'block' : 'none',
                 }}>
-                    <Sidenav.Toggle expanded={expanded} onToggle={expanded => setExpanded(expanded)} style={{
+                    {/* <Sidenav.Toggle expanded={expanded} onToggle={expanded => setExpanded(expanded)} style={{
                                 color: navColor,    
-                                }} />
+                                }} /> */}
                     <Sidenav.Body>
                         <Nav>
                             <Nav.Item eventKey="home" as={Link} to="/home" icon={<HomeIcon style={{
