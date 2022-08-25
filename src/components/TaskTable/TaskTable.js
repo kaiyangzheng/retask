@@ -62,10 +62,11 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
   const handleReviewTask = async (taskId) => {
     return axiosInstance.post(`/api/v1/review-session/${taskId}/`)
     .then(res => {
+        console.log(res.data);
         setReloadData(!reloadData);
         setReviewSessionId(res.data.id);
-        setOpenReviewModal(true);
         setReviewTaskId(res.data.task);
+        setOpenReviewModal(true);
     })
     .catch(err => {
         console.log(err);

@@ -5,7 +5,8 @@ import {
     ButtonToolbar,
     Button,
     Input,
-    Animation 
+    Animation,
+    Placeholder 
 } from 'rsuite';
 import Checkmark from '../../../svg/Checkmark';
 import axiosInstance from '../../../utils/axiosAPI';
@@ -72,13 +73,16 @@ export default function EditModal({openEditModal, setOpenEditModal, reloadData, 
                     </ButtonToolbar>
                 </Form.Group>
             </Form> :
-            <Animation.Bounce in={updated} timeout={3000}>
-                <div className="updated-container">
-                    <h4>Updated task!</h4>
-                    <Checkmark/>
-                    <Button color="red" appearance="primary" onClick={handleClose} className="updated-button">Close</Button>
-                </div>
-            </Animation.Bounce>}
+            <div>
+                {updated ? <Animation.Bounce in={updated} timeout={3000}>
+                    <div className="updated-container">
+                        <h4>Updated task!</h4>
+                        <Checkmark/>
+                        <Button color="red" appearance="primary" onClick={handleClose} className="updated-button">Close</Button>
+                    </div>
+                </Animation.Bounce> :
+                <Placeholder.Graph/>}
+            </div>}
         </Modal.Body>
     </Modal>
   )

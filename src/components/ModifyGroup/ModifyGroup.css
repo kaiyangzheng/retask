@@ -15,6 +15,7 @@
 .modify-button-group{
     display: flex;
     margin-top: 20px;
+    align-items: center;
 }
 
 .modify-button-group > *{
@@ -24,14 +25,9 @@
 
 .modify-group-svg{
     flex: 1;
-    display: flex;
+    display: none;
     justify-content: center;
     margin-top: 20px;
-}
-@media screen and (min-width: 1800px){
-    .modify-group-svg{
-        display: none;
-    }
 }
 
 @media screen and (max-width: 768px){
@@ -41,6 +37,10 @@
 
     .modify-button{
         width: 75px;
+    }
+
+    .modify-group-svg{
+        display: flex;
     }
 }
 

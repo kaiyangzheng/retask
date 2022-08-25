@@ -182,9 +182,10 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded, tasks })
                 setTimeframe(e);
             }}/>
         </div>
-        {chartData.length > 0 ? <div className="progress-line-chart-plot">
+        <div className="progress-line-chart-plot">
             {!dataLoaded ? <Placeholder.Graph active/> : 
-                <ResponsiveContainer width="99%" aspect={6.5/1}>
+            <div>
+                {chartData.length > 0 ? <ResponsiveContainer width="99%" aspect={6.5/1}>
                     <LineChart data={chartData} margin={{
                         top: 25, right: 30, left: 20, bottom: 5,
                     }}>
@@ -194,11 +195,12 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded, tasks })
                         <Legend />
                         <Line type="monotone" dataKey="count" stroke={chartStrokeColor} activeDot={{r: 8}} name="# Review Sessions"/>
                     </LineChart>
-                </ResponsiveContainer>}
-        </div> : 
-        <div className="progress-line-chart-plot no-plot">
-            <p>No review sessions</p>
-        </div>}
+                </ResponsiveContainer> : 
+                <div className="progress-line-chart-plot no-plot">
+                    <p>No review sessions</p>
+                </div>}
+            </div>}
+        </div> 
     </Panel>
   )
 }

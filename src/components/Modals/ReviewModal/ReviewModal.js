@@ -7,6 +7,7 @@ import {
     InputPicker,
     Panel,
     IconButton,
+    Placeholder
 } from 'rsuite'
 import axiosInstance from '../../../utils/axiosAPI';
 import { convertUtcToLocal, secondsToHms } from '../../../utils/dateHelpers';
@@ -127,16 +128,19 @@ export default function ReviewModal({openReviewModal, setOpenReviewModal, reload
             </Form>
         </Modal.Body> : 
         <Modal.Body>
-            <div className="next-review-date-container">
-                <h4>Next review date: {convertUtcToLocal(selectedTask.next_review_date)} ({selectedTask.interval} days)</h4>
-            </div>
-            <div className="review-task-stats">
-                <span>Time elapsed: {secondsToHms(finishedRes.time_elapsed)} </span>
-                <span>New quality: {finishedRes.quality}</span>
-            </div>
-            <div className="review-modal-footer-btn-container">
-                <Button color="red" appearance="primary" onClick={handleClose}>Close</Button>
-            </div>
+            {finishedReview ? <div>
+                <div className="next-review-date-container">
+                    <h4>Next review date: {convertUtcToLocal(selectedTask.next_review_date)} ({selectedTask.interval} days)</h4>
+                </div>
+                <div className="review-task-stats">
+                    <span>Time elapsed: {secondsToHms(finishedRes.time_elapsed)} </span>
+                    <span>New quality: {finishedRes.quality}</span>
+                </div>
+                <div className="review-modal-footer-btn-container">
+                    <Button color="red" appearance="primary" onClick={handleClose}>Close</Button>
+                </div>
+            </div> : 
+            <Placeholder.Graph/>}
         </Modal.Body>}
     </Modal>
   )

@@ -31,9 +31,19 @@
     font-size: 30px;
 }
 
-@media screen and (max-width: 1440px){
+@media screen and (max-width: 1024px){
+    .greeting-svg{
+        display: none;
+    }   
+}
+
+@media screen and (max-width: 768px){
     .greeting-container{
         flex-direction: column;
+    }
+
+    .greeting-svg{
+        display: flex;
     }
 }
 
