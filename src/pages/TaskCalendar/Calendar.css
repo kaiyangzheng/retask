@@ -1,0 +1,21 @@
+.calendar-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.calendar-list{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.calendar-item:hover{
+    cursor: pointer;
+    color: #007FFF;
+    text-decoration: underline;
+}

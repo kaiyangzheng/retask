@@ -27,7 +27,7 @@ export default function ModifyGroup({ setOpenAddModal, setModifyType, setOpenMod
               }}/>
               <IconButton icon={<HeartO />} className="modify-button" appearance='primary' color='violet' onClick={()=>{
                 setOpenModifyModal(true);
-                setModifyType('Favorite');
+                setModifyType('Favorite')
               }}/>
           </div>
           <div className="modify-group-svg">

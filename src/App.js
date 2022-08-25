@@ -17,6 +17,7 @@ import AddModal from './components/Modals/AddModal/AddModal';
 import ReviewModal from './components/Modals/ReviewModal/ReviewModal';
 import EditModal from './components/Modals/EditModal/EditModal';
 import ModifyModal from './components/Modals/ModifyModal/ModifyModal';
+import Calendar from './pages/TaskCalendar/TaskCalendar';
 import {
   getUser,
   getTasks,
@@ -141,6 +142,10 @@ function App() {
                 setModifyType={setModifyType}
                 setOpenModifyModal={setOpenModifyModal}
               />} />
+              <Route path="/calendar" element={<Calendar
+                tasks={tasks}
+                reviewSessions={reviewSessions}
+              />}/>
             </Routes>
           </Sidebar>
         </BrowserRouter>
