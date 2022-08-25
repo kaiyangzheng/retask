@@ -41,7 +41,6 @@ export default function AddModal({openAddModal, setOpenAddModal, reloadData, set
     let addedTask = await handleAddTask();
     return axiosInstance.post(`/api/v1/review-session/${addedTask.data.id}/`)
     .then(res => {
-        setReloadData(!reloadData);
         setTask({
             'name': '',
             'description': ''
@@ -49,6 +48,7 @@ export default function AddModal({openAddModal, setOpenAddModal, reloadData, set
         setReviewTaskId(res.data.task);
         setReviewSessionId(res.data.id);
         setOpenReviewModal(true);
+        setReloadData(!reloadData);
         handleClose();
     }).catch(err => {
         console.log(err);

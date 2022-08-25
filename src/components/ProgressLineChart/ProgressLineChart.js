@@ -16,7 +16,7 @@ import {
 import { convertUtcToLocal } from '../../utils/dateHelpers';
 import './ProgressLineChart.css';
 
-export default function ProgressLineChart({ reviewSessions, dataLoaded }) {
+export default function ProgressLineChart({ reviewSessions, dataLoaded, tasks }) {
   const timeframeSelectData = [
     {label: 'Week', value: 'week'},
     {label: 'Month', value: 'month'},
@@ -26,6 +26,7 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded }) {
   const [timeframe, setTimeframe] = useState('week');
   const [chartData, setChartData] = useState([]);
   const [chartStrokeColor, setChartStrokeColor] = useState('')
+
   
   const createWeeklyData = () => {
     let weeklyData = [];
@@ -138,8 +139,33 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded }) {
             setChartData(createAllTimeData());
             setChartStrokeColor('#82ca9d');
         }
+    }else{
+        setChartData([]);
     }
   }, [reviewSessions, timeframe, dataLoaded])
+
+  const CustomToolTip = ({active, payload, label}) => {
+    if (active && payload && payload.length) {
+        return (
+          <div className="custom-tooltip">
+            <div className="label">
+                {label}
+            </div>
+            <div className="basic-info">
+                # Review sessions: {payload[0].value}
+            </div>
+            <div className="review-sessions-detail">
+                {reviewSessions.filter((reviewSession)=>convertUtcToLocal(reviewSession.time_finished)==label).map((reviewSession, index)=>{
+                    let task = tasks.filter(task=>task.id==reviewSession.task)[0];  
+                    return <div className="review-session">
+                        {index+1}. {task.name}
+                    </div>
+                })}
+            </div>
+          </div>
+        );
+    }
+  }
 
 
   return (
@@ -150,20 +176,23 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded }) {
                 setTimeframe(e);
             }}/>
         </div>
-        <div className="progress-line-chart-plot">
+        {chartData.length > 0 ? <div className="progress-line-chart-plot">
             {!dataLoaded ? <Placeholder.Graph active/> : 
                 <ResponsiveContainer width="99%" aspect={6.5/1}>
-                <LineChart data={chartData} margin={{
-                    top: 25, right: 30, left: 20, bottom: 5,
-                }}>
-                    <XAxis dataKey="date"/>
-                    <YAxis />
-                    <Tooltip/>
-                    <Legend />
-                    <Line type="monotone" dataKey="count" stroke={chartStrokeColor} activeDot={{r: 8}} name="# Review Sessions"/>
-                </LineChart>
-            </ResponsiveContainer>}
-        </div>
+                    <LineChart data={chartData} margin={{
+                        top: 25, right: 30, left: 20, bottom: 5,
+                    }}>
+                        <XAxis dataKey="date"/>
+                        <YAxis />
+                        <Tooltip content={<CustomToolTip/>}/>
+                        <Legend />
+                        <Line type="monotone" dataKey="count" stroke={chartStrokeColor} activeDot={{r: 8}} name="# Review Sessions"/>
+                    </LineChart>
+                </ResponsiveContainer>}
+        </div> : 
+        <div className="progress-line-chart-plot no-plot">
+            <p>No review sessions</p>
+        </div>}
     </Panel>
   )
 }

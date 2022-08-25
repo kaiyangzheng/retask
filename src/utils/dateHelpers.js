@@ -56,6 +56,9 @@ export const getTimeOfDay = () => {
 }
 
 export function secondsToHms(seconds){
+    if (!seconds){
+        return;
+    }
     if (seconds < 3600){
         return new Date(seconds * 1000).toISOString().substring(14, 19);
     }else{

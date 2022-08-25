@@ -1,0 +1,8 @@
+.tasks-table{
+    margin-top: 20px
+}
+
+.modify-favorite-btn{
+    cursor: pointer;
+    font-size: 15px;
+}

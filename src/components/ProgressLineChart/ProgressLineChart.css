@@ -13,6 +13,24 @@
     margin-top: 20px;
 }
 
+.no-plot{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.custom-tooltip{
+    padding: 10px;
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+}
+
+.review-sessions-detail{
+    display: flex;
+    flex-direction: column;
+}
+
 @media screen and (max-width: 425px){
     .progress-line-chart-panel{
         display: none;

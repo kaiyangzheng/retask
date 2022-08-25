@@ -1,0 +1,14 @@
+.updated-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.updated-container h4{
+    margin-bottom: 15px;
+}
+
+.updated-button{
+    margin-top: 20px;
+}

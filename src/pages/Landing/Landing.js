@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {
     useNavigate
 } from 'react-router-dom';
+import './Landing.css';
 
 export default function Landing({loginInfo}) {
   const navigate = useNavigate();
@@ -15,8 +16,8 @@ export default function Landing({loginInfo}) {
   }, [])
 
   return (
-    <div>
-
+    <div className="landing-placeholder">
+        <h2>Landing Page</h2>
     </div>
   )
 }

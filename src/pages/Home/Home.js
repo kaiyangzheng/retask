@@ -5,7 +5,7 @@ import ProgressLineChart from '../../components/ProgressLineChart/ProgressLineCh
 import TaskTable from '../../components/TaskTable/TaskTable';
 import './Home.css';
 
-export default function Home({ loginInfo, currentTime, user, reviewSessions, tasks, taskTypes, dataLoaded, openAddModal, setOpenAddModal, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal }) {
+export default function Home({ loginInfo, currentTime, user, reviewSessions, tasks, taskTypes, dataLoaded, openAddModal, setOpenAddModal, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal, setEditTaskId, setOpenEditModal, setModifyType, setOpenModifyModal }) {
   useEffect(()=>{
     document.title = "Retask | Home";
   }, [])
@@ -14,13 +14,13 @@ export default function Home({ loginInfo, currentTime, user, reviewSessions, tas
     <div className="home-container">
       <div className="home-intro-container">
         <Greeting loginInfo={loginInfo} />
-        <Modifygroup loginInfo={loginInfo} setOpenAddModal={setOpenAddModal}/>
+        <Modifygroup loginInfo={loginInfo} setOpenAddModal={setOpenAddModal} setModifyType={setModifyType} setOpenModifyModal={setOpenModifyModal}/>
       </div>
       <div className="home-chart-container">
-        <ProgressLineChart reviewSessions={reviewSessions} dataLoaded={dataLoaded} />
+        <ProgressLineChart reviewSessions={reviewSessions} dataLoaded={dataLoaded} tasks={tasks}/>
       </div>
       <div className="home-table-container">
-        <TaskTable tasks={tasks} taskTypes={taskTypes} dataLoaded={dataLoaded} currentTime={currentTime} user={user} reloadData={reloadData} setReloadData={setReloadData} setReviewTaskId={setReviewTaskId} setReviewSessionId={setReviewSessionId} setOpenReviewModal={setOpenReviewModal}/>
+        <TaskTable tasks={tasks} taskTypes={taskTypes} dataLoaded={dataLoaded} currentTime={currentTime} user={user} reloadData={reloadData} setReloadData={setReloadData} setReviewTaskId={setReviewTaskId} setReviewSessionId={setReviewSessionId} setOpenReviewModal={setOpenReviewModal} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>
       </div>
     </div>
     </>

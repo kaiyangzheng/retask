@@ -7,7 +7,7 @@ import HeartO from '@rsuite/icons/legacy/HeartO';
 import ModifyTasks from '../../svg/ModifyTasks';
 import './ModifyGroup.css';
 
-export default function ModifyGroup({ setOpenAddModal }) {
+export default function ModifyGroup({ setOpenAddModal, setModifyType, setOpenModifyModal }) {
   return (
     <Panel bordered className="modify-group-panel">
       <div className="modify-group-container">
@@ -17,9 +17,18 @@ export default function ModifyGroup({ setOpenAddModal }) {
           </div>
           <div className="modify-button-group">
               <IconButton icon={<PlusIcon />} className="modify-button" appearance='primary' color="blue" onClick={()=>setOpenAddModal(true)}/>
-              <IconButton icon={<EditIcon />} className="modify-button" appearance='primary' color="cyan"/>
-              <IconButton icon={<TrashIcon />} className="modify-button" appearance='primary' color='red'/>
-              <IconButton icon={<HeartO />} className="modify-button" appearance='primary' color='violet'/>
+              <IconButton icon={<EditIcon />} className="modify-button" appearance='primary' color="cyan" onClick={()=>{
+                setOpenModifyModal(true);
+                setModifyType('Edit');
+              }}/>
+              <IconButton icon={<TrashIcon />} className="modify-button" appearance='primary' color='red' onClick={()=>{
+                setOpenModifyModal(true);
+                setModifyType('Delete');
+              }}/>
+              <IconButton icon={<HeartO />} className="modify-button" appearance='primary' color='violet' onClick={()=>{
+                setOpenModifyModal(true);
+                setModifyType('Favorite');
+              }}/>
           </div>
           <div className="modify-group-svg">
               <ModifyTasks />

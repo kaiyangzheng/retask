@@ -15,6 +15,8 @@ import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
 import AddModal from './components/Modals/AddModal/AddModal';
 import ReviewModal from './components/Modals/ReviewModal/ReviewModal';
+import EditModal from './components/Modals/EditModal/EditModal';
+import ModifyModal from './components/Modals/ModifyModal/ModifyModal';
 import {
   getUser,
   getTasks,
@@ -49,11 +51,13 @@ function App() {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [openModifyModal, setOpenModifyModal] = useState(false);
 
   // task actions
   const [reviewTaskId, setReviewTaskId] = useState(null);
   const [reviewSessionId, setReviewSessionId] = useState(null);
   const [editTaskId, setEditTaskId] = useState(null);
+  const [modifyType, setModifyType] = useState(null);
 
   useEffect(()=>{
     const timer = setInterval(()=>{
@@ -104,6 +108,8 @@ function App() {
       <div className="App">
         <AddModal openAddModal={openAddModal} setOpenAddModal={setOpenAddModal} reloadData={reloadData} setReloadData={setReloadData} setOpenReviewModal={setOpenReviewModal} setReviewTaskId={setReviewTaskId} setReviewSessionId={setReviewSessionId}/>
         <ReviewModal openReviewModal={openReviewModal} setOpenReviewModal={setOpenReviewModal} reloadData={reloadData} setReloadData={setReloadData} reviewTaskId={reviewTaskId} reviewSessionId={reviewSessionId} tasks={tasks}/>
+        <EditModal openEditModal={openEditModal} setOpenEditModal={setOpenEditModal} reloadData={reloadData} setReloadData={setReloadData} editTaskId={editTaskId} tasks={tasks}/>
+        <ModifyModal tasks={tasks} taskTypes={taskTypes} user={user} currentTime={currentTime} dataLoaded={dataLoaded} openModifyModal={openModifyModal} setOpenModifyModal={setOpenModifyModal} type={modifyType} reloadData={reloadData} setReloadData={setReloadData} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>
         <BrowserRouter>
         <Appbar theme={theme} setTheme={setTheme} navColor={navColor} loginInfo={loginInfo}/>
           <Sidebar navColor={navColor} loginInfo={loginInfo} setLoginInfo={setLoginInfo}>
@@ -130,6 +136,10 @@ function App() {
                 setReviewTaskId={setReviewTaskId}
                 setReviewSessionId={setReviewSessionId}
                 setOpenReviewModal={setOpenReviewModal}
+                setEditTaskId={setEditTaskId}
+                setOpenEditModal={setOpenEditModal}
+                setModifyType={setModifyType}
+                setOpenModifyModal={setOpenModifyModal}
               />} />
             </Routes>
           </Sidebar>

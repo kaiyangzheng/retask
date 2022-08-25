@@ -23,7 +23,7 @@ function getWindowDimensions() {
     };
   }
 
-export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, user, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal }) {
+export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, user, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal, setEditTaskId, setOpenEditModal }) {
   const { Column, HeaderCell, Cell } = Table;
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
   const [tableHeight, setTableHeight] = useState(0);
@@ -38,7 +38,7 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
   }, []);
 
   useEffect(()=>{
-    let height = (tasks.length+1)*46;
+    let height = 40+(tasks.length)*(46);
     if (height > 800){
         height = 800;
     }
@@ -63,13 +63,18 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
     return axiosInstance.post(`/api/v1/review-session/${taskId}/`)
     .then(res => {
         setReloadData(!reloadData);
-        setReviewTaskId(res.data.task);
         setReviewSessionId(res.data.id);
         setOpenReviewModal(true);
+        setReviewTaskId(res.data.task);
     })
     .catch(err => {
         console.log(err);
     })
+  }
+
+  const handleEditTask = (taskId) => {
+    setEditTaskId(taskId);
+    setOpenEditModal(true);
   }
 
   return (
@@ -192,7 +197,7 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
                                     <Popover ref={ref} className={className} style={{ left, top }} full>
                                         <Dropdown.Menu onSelect={handleSelect}>
                                             <Dropdown.Item eventKey={1} disabled={rowData.prev_review_date != null && convertUtcToLocal(rowData.next_review_date) != convertUtcToLocal(currentTime)} onClick={()=>handleReviewTask(rowData.id)}>Review</Dropdown.Item>
-                                            <Dropdown.Item eventKey={2}>Edit</Dropdown.Item>
+                                            <Dropdown.Item eventKey={2} onClick={()=>handleEditTask(rowData.id)}>Edit</Dropdown.Item>
                                             <Dropdown.Item eventKey={3} onClick={()=>handleDeleteTask(rowData.id)}>Delete</Dropdown.Item>
                                             <Dropdown.Item eventKey={4}>Task page</Dropdown.Item>
                                         </Dropdown.Menu>

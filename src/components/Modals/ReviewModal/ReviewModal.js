@@ -64,6 +64,10 @@ export default function ReviewModal({openReviewModal, setOpenReviewModal, reload
   }
 
   useEffect(()=>{
+    setStopwatch(0);
+  }, [openReviewModal])
+
+  useEffect(()=>{
     let interval = null;
     if (openReviewModal && !paused){
         interval = setInterval(()=>{
@@ -86,7 +90,7 @@ export default function ReviewModal({openReviewModal, setOpenReviewModal, reload
         <Modal.Header>
             <h3>Review {selectedTask.name}</h3>
         </Modal.Header>
-        {!finishedReview ? <Modal.Body>
+        {!finishedReview && openReviewModal ? <Modal.Body>
             <div className="description-container">
                 <strong>Description</strong>
                 <p>{selectedTask.description.length > 0 ? selectedTask.description : 'None'}</p>
