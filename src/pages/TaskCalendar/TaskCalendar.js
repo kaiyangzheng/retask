@@ -4,11 +4,12 @@ import {
     Badge,
     Whisper,
     Popover,
+    Placeholder
 } from 'rsuite';
 import { convertUtcToLocal } from '../../utils/dateHelpers';
 import './Calendar.css';
 
-export default function TaskCalendar({tasks, reviewSessions}) {
+export default function TaskCalendar({tasks, reviewSessions, dataLoaded}) {
 
   useEffect(()=>{
     document.title = 'Retask | Calendar'
@@ -90,7 +91,7 @@ export default function TaskCalendar({tasks, reviewSessions}) {
   }
   return (
     <div className="calendar-container">
-        <Calendar bordered renderCell={renderCell}/>
+        {dataLoaded ? <Calendar bordered renderCell={renderCell}/> : <Placeholder.Graph active height={700}/>}
     </div>
   )
 }

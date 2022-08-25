@@ -145,6 +145,7 @@ function App() {
               <Route path="/calendar" element={<Calendar
                 tasks={tasks}
                 reviewSessions={reviewSessions}
+                dataLoaded={dataLoaded}
               />}/>
             </Routes>
           </Sidebar>
