@@ -1,5 +1,5 @@
-.home-container{
-    max-width: 100%;
+.home-container{    
+    width: calc(100vw - 50px);
     display: flex;
     flex-direction: column;
 }

@@ -16,11 +16,13 @@
     display: flex;
     margin-top: 20px;
     align-items: center;
+    justify-content: center;
 }
 
 .modify-button-group > *{
     flex: 1;
-    margin-right: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .modify-group-svg{
@@ -33,6 +35,7 @@
 @media screen and (max-width: 768px){
     .modify-group-container{
        align-items: center;
+       text-align: center;
     }
 
     .modify-button{
@@ -44,25 +47,14 @@
     }
 }
 
-
-/* @media screen and (max-width: 1440px){
-    .modify-button-group{
-        flex-direction: column;
-    }
-
-    .modify-button-group > *{
-        margin: 0px;
-        margin-bottom: 10px;
+@media screen and (max-width: 425px){
+    .modify-button{
+        width: 50px;
     }
 }
-    
-@media screen and (max-width: 768px){
-    .modify-button-group{
-        flex-direction: row;
-    }   
 
-    .modify-button-group > *{
-        flex: 1;
-        margin: 0px 10px;
+@media screen and (max-width: 320px){
+    .modify-button{
+        width: 40px;
     }
-} */
+}
