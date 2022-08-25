@@ -158,7 +158,13 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded, tasks })
                 {reviewSessions.filter((reviewSession)=>convertUtcToLocal(reviewSession.time_finished)==label).map((reviewSession, index)=>{
                     let task = tasks.filter(task=>task.id==reviewSession.task)[0];  
                     return <div className="review-session">
-                        {index+1}. {task.name}
+                        <div className="task-time">
+                            {(new Date(reviewSession.time_finished)).toLocaleTimeString()}
+                        </div>
+                        <div className="task-name">
+                            {index+1}. {task.name} - {reviewSession.quality}
+                        </div>
+
                     </div>
                 })}
             </div>
