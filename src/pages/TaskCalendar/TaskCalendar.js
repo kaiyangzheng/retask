@@ -122,7 +122,7 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
           <h2>{selectedDate}</h2>
         </div>
         <div className="calendar-day-info-content">
-          <Panel accordian bordered>
+          <Panel accordian bordered={dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 ? false : true}>
             {dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 ? <p style={{textAlign: 'center'}}>No data</p> : 
             <div>
             {dateTasks.length > 0 && dateTasks.map((task)=>{
