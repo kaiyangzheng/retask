@@ -4,9 +4,13 @@
     flex-direction: column;
 }
 
+.home-breadcrumb-container{
+    margin: 0 20px;
+    margin-top: 5px;
+}
+
 .home-intro-container{
     display: flex;
-    margin-top: 20px;
 }
 
 .home-chart-container{

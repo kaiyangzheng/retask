@@ -9,6 +9,10 @@ import {
     PanelGroup,
 } from 'rsuite';
 import { convertUtcToLocal, secondsToHms, getDateDifference, dateDifferenceMessage } from '../../utils/dateHelpers';
+import {
+  useLocation 
+} from 'react-router-dom';
+import BreadcrumbHeader from '../../components/Breadcrumb/BreadcrumbHeader';
 import './Calendar.css';
 
 function getWindowDimensions() {
@@ -27,6 +31,7 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
   const [expandedTasks, setExpandedTasks] = useState({});
   const [expandedReviews, setExpandedReviews] = useState({});
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  const location = useLocation();
 
   useEffect(() => {
     function handleResize() {
@@ -124,7 +129,7 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
                   <a href={task.type == 'dateReviewSession' ? `#review-${task.id}` : `#task-${task.id}`}>
                     <div onClick={task.type == 'dateReviewSession' ? ()=>handleClickReview(task.id, false) : ()=>handleClickTask(task.id, false)}>
                       {task.type == 'dateTask' &&
-                        <p className="calendar-item"><strong>Todo - </strong> review {task.name}</p>}
+                        <p className="calendar-item"><strong>Todo</strong> review {task.name}</p>}
                       {task.type == 'dateReviewSession' && 
                         <p className="calendar-item">Reviewed {tasks.filter((taski) => taski.id ===task.task)[0].name}</p>}
                       {task.type == 'dateAddedTask' && 
@@ -155,7 +160,7 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
                     </>}
                     {task.type == 'dateTask' && <>
                       <Badge className="calendar-badge next-review"/>
-                      <span className="calendar-item-content"><strong>Todo - </strong> <span>review {task.name}</span></span>
+                      <span className="calendar-item-content"><strong>Todo</strong> <span>review {task.name}</span></span>
                     </>}
               </li>
             </a>
@@ -169,6 +174,9 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
   }
   return (
     <>
+    <div className="calendar-breadcrumb-container">
+      <BreadcrumbHeader location={location}/>
+    </div>
     <div className="calendar-container">
         {dataLoaded ? <Calendar compact={windowDimensions.width<=768} bordered renderCell={renderCell} onChange={(e)=>setSelectedDate(convertUtcToLocal(e))}/> : <Placeholder.Graph active height={700}/>}
     </div>
@@ -182,7 +190,7 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
             {dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 && <p style={{textAlign: 'center', padding: '20px', marginBottom: '20px'}}>No data</p>}
             {dateTasks.length > 0 && dateTasks.map((task)=>{
               return <Panel header={
-                <span className="calendar-panel-header"><Badge className="calendar-badge next-review"/> <strong>Todo -&nbsp;</strong>review {task.name}</span>
+                <span className="calendar-panel-header"><Badge className="calendar-badge next-review"/> <strong>Todo&nbsp;</strong>review {task.name}</span>
               } expanded={expandedTasks[task.id]} onClick={()=>handleClickTask(task.id, true)} id={`task-${task.id}`}>
                 <div className="calendar-detail">
                   <div className="description">
