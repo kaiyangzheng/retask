@@ -65,3 +65,18 @@ export function secondsToHms(seconds){
         return new Date(seconds * 1000).toISOString().substring(11, 16);
     }
 }
+
+export function dateDifferenceMessage(date1,date2){
+    let difference = date1.getTime() - date2.getTime();
+    let TotalDays = Math.floor(difference / (1000 * 3600 * 24));
+    if (difference < 0){
+        TotalDays *= -1;
+        TotalDays += ' days from today'
+    }else{
+        TotalDays += ' days ago'
+    }
+    if (TotalDays == '0 days ago'){
+        return 'Today'
+    }
+    return TotalDays;
+}

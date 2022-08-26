@@ -182,9 +182,7 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded, tasks, t
                 setTimeframe(e);
             }}/>
         </div>
-        <div className="progress-line-chart-plot" style={{
-            backgroundColor: theme == 'dark' ? '#1b1d23' : '#fff',
-        }}>
+        <div className="progress-line-chart-plot">
             {!dataLoaded ? <Placeholder.Graph active/> : 
             <div>
                 {chartData.length > 0 ? <ResponsiveContainer width="99%" aspect={6.5/1}>

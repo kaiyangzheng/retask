@@ -6,16 +6,36 @@ import {
     Popover,
     Placeholder,
     Panel,
-    List
+    PanelGroup,
 } from 'rsuite';
-import { convertUtcToLocal } from '../../utils/dateHelpers';
+import { convertUtcToLocal, secondsToHms, getDateDifference, dateDifferenceMessage } from '../../utils/dateHelpers';
 import './Calendar.css';
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
 
 export default function TaskCalendar({tasks, reviewSessions, dataLoaded, currentTime}) {
   const [selectedDate, setSelectedDate] = useState(convertUtcToLocal(new Date()));
   const [dateReviewSessions, setDateReviewSessions] = useState([]);
   const [dateTasks, setDateTasks] = useState([]);
   const [dateAddedTasks, setDateAddedTasks] = useState([]);
+  const [expandedTasks, setExpandedTasks] = useState({});
+  const [expandedReviews, setExpandedReviews] = useState({});
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(()=>{
     document.title = 'Retask | Calendar'
@@ -36,6 +56,31 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
     setDateTasks(dateTasks);
     setDateAddedTasks(dateAddedTasks);
   }, [selectedDate])
+
+  useEffect(()=>{
+    if (tasks && reviewSessions){
+      for (let i = 0; i < tasks.length; i++){
+        expandedTasks[tasks[i].id] = false;
+      }
+      for (let i = 0; i < reviewSessions.length; i++){
+        expandedReviews[reviewSessions[i].id] = false;
+      }
+    }
+  }, [dataLoaded])
+
+  const handleClickTask = (taskId, close) => {
+    if (!close && !expandedTasks[taskId] == false){
+      return;
+    }
+    setExpandedTasks({...expandedTasks, [taskId]: !expandedTasks[taskId]})
+  }
+
+  const handleClickReview = (reviewSessionId, close) => {
+    if (!close && !expandedReviews[reviewSessionId] == false){
+      return;
+    }
+    setExpandedReviews({...expandedReviews, [reviewSessionId]: !expandedReviews[reviewSessionId]})
+  }
 
   function renderCell(date) {
     let dateReviewSessions = reviewSessions.filter((reviewSession)=>{
@@ -69,7 +114,6 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
       const moreCount = list.length - displayList.length;
 
       const moreItem = (
-        <li>
           <Whisper
             placement="top"
             trigger="click"
@@ -77,13 +121,16 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
               <Popover>
                 {list.map((task, index)=>{
                   return <>
-                  {task.type == 'dateTask' &&
-                    <p className="calendar-item"><strong>Todo - </strong> review {task.name}</p>}
-                  {task.type == 'dateReviewSession' && 
-                    <p className="calendar-item">Reviewed {tasks.filter((taski) => taski.id ===task.task)[0].name}</p>}
-                  {task.type == 'dateAddedTask' && 
-                    <p className="calendar-item">Added {task.name}</p>}
-
+                  <a href={task.type == 'dateReviewSession' ? `#review-${task.id}` : `#task-${task.id}`}>
+                    <div onClick={task.type == 'dateReviewSession' ? ()=>handleClickReview(task.id, false) : ()=>handleClickTask(task.id, false)}>
+                      {task.type == 'dateTask' &&
+                        <p className="calendar-item"><strong>Todo - </strong> review {task.name}</p>}
+                      {task.type == 'dateReviewSession' && 
+                        <p className="calendar-item">Reviewed {tasks.filter((taski) => taski.id ===task.task)[0].name}</p>}
+                      {task.type == 'dateAddedTask' && 
+                        <p className="calendar-item">Added {task.name}</p>}
+                    </div>
+                  </a>
                   </>
                 })}
               </Popover>
@@ -91,22 +138,31 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
           >
             <a>{moreCount} more</a>
           </Whisper>
-        </li>
       );
 
-      return <ul className="calendar-list">
-        {displayList.map((task, index)=>{
-          return <li key={index} className="calendar-item">
-            <Badge/> {task.type == 'dateReviewSession' && 
-                      `Reviewed ${tasks.filter((taski) => taski.id ===task.task)[0].name}`}
-                    {task.type == 'dateAddedTask' && 
-                      `Added ${task.name}`}
-                    {task.type == 'dateTask' &&
-                     <span><strong>Todo - </strong> <span>review {task.name}</span></span>}
-          </li>
-        })}
-        {moreCount ? moreItem : null}
-      </ul>
+      return <div className="calender-list-container">
+        <ul className="calendar-list">
+          {displayList.map((task, index)=>{
+            return <a href={task.type == 'dateReviewSession' ? `#review-${task.id}` : `#task-${task.id}`}>
+              <li key={index} className="calendar-item" onClick={task.type == 'dateReviewSession' ? ()=>handleClickReview(task.id, false) : ()=>handleClickTask(task.id, false)}>
+                    {task.type == 'dateReviewSession' && <>
+                      <Badge className="calendar-badge review" />
+                      <span className="calendar-item-content">{`Reviewed ${tasks.filter((taski) => taski.id ===task.task)[0].name}`}</span>
+                    </>}
+                    {task.type == 'dateAddedTask' && <>
+                      <Badge className="calendar-badge add"/>
+                      <span className="calendar-item-content">{`Added ${task.name}`}</span>
+                    </>}
+                    {task.type == 'dateTask' && <>
+                      <Badge className="calendar-badge next-review"/>
+                      <span className="calendar-item-content"><strong>Todo - </strong> <span>review {task.name}</span></span>
+                    </>}
+              </li>
+            </a>
+          })}
+          {windowDimensions.width > 768 && moreCount ? moreItem : null}
+        </ul>
+      </div>
     }else{
       return null;
     }
@@ -114,22 +170,72 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
   return (
     <>
     <div className="calendar-container">
-        {dataLoaded ? <Calendar bordered renderCell={renderCell} onChange={(e)=>setSelectedDate(convertUtcToLocal(e))}/> : <Placeholder.Graph active height={700}/>}
+        {dataLoaded ? <Calendar compact={windowDimensions.width<=768} bordered renderCell={renderCell} onChange={(e)=>setSelectedDate(convertUtcToLocal(e))}/> : <Placeholder.Graph active height={700}/>}
     </div>
     <div className="calendar-day-info-container">
       {dataLoaded ? <Panel bordered className="calendar-day-info-panel">
         <div className="calendar-day-info-title">
-          <h2>{selectedDate}</h2>
+          <h2>{selectedDate} </h2><p>{dateDifferenceMessage(new Date(currentTime), new Date(selectedDate))}</p>
         </div>
         <div className="calendar-day-info-content">
-          <Panel accordian bordered={dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 ? false : true}>
-            {dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 ? <p style={{textAlign: 'center'}}>No data</p> : 
-            <div>
+          <PanelGroup accordion bordered={dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 ? false : true}>
+            {dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 && <p style={{textAlign: 'center', padding: '20px', marginBottom: '20px'}}>No data</p>}
             {dateTasks.length > 0 && dateTasks.map((task)=>{
-              return <Panel header={task.name}></Panel> 
+              return <Panel header={
+                <span className="calendar-panel-header"><Badge className="calendar-badge next-review"/> <strong>Todo -&nbsp;</strong>review {task.name}</span>
+              } expanded={expandedTasks[task.id]} onClick={()=>handleClickTask(task.id, true)} id={`task-${task.id}`}>
+                <div className="calendar-detail">
+                  <div className="description">
+                    Description: {task.description ? task.description : 'None'}
+                  </div>
+                  <div className="previous-review">
+                    Previous review: {convertUtcToLocal(task.prev_review_date)} ({new Date(task.prev_review_date).toLocaleTimeString()})
+                  </div>
+                  <div className="quality">
+                    Quality: {task.quality}
+                  </div>
+                  <div className="repetitions">
+                    Repetitions: {task.repetitions}
+                  </div>
+                </div>
+              </Panel>
             })}
-            </div>}
-          </Panel>
+
+            {dateAddedTasks.length > 0 && dateAddedTasks.map((task)=>{
+              return <Panel header={
+                <span className="calendar-panel-header"><Badge className="calendar-badge add"/> Added {task.name}</span>
+              } expanded={expandedTasks[task.id]} onClick={()=>handleClickTask(task.id, true)} id={`task-${task.id}`}>
+                <div className="calendar-detail">
+                  <div className="description">
+                    Description: {task.description ? task.description : 'None'}
+                  </div>
+                  <div className="time-added">
+                    Time added: {(new Date(task.date_added)).toLocaleTimeString()}
+                  </div>
+                </div>
+              </Panel>
+            })}
+
+            {dateReviewSessions.length > 0 && dateReviewSessions.map((reviewSession)=>{
+              let task = tasks.filter((task)=>task.id == reviewSession.task)[0]
+              return <Panel header={
+                <span className="calendar-panel-header"><Badge className="calendar-badge review"/> Reviewed {task.name}</span>
+              } expanded={expandedReviews[reviewSession.id]} onClick={()=>handleClickReview(reviewSession.id, true)} id={`review-${reviewSession.id}`}>
+                <div className="calendar-detail">
+                  <div className="description">
+                    Description: {task.description ? task.description : 'None'}
+                  </div>
+                  <div className="time-elapsed">
+                    Time spent: {secondsToHms(reviewSession.time_elapsed)} ({(new Date(reviewSession.time_started)).toLocaleTimeString()} - {(new Date(reviewSession.time_finished)).toLocaleTimeString()})
+                  </div>
+                  <div className="quality">
+                    New quality: {reviewSession.quality}
+                  </div>
+                </div>
+              </Panel>
+            })}
+
+          </PanelGroup>
         </div>
       </Panel> : <Placeholder.Graph active height={300}/>}
     </div>
