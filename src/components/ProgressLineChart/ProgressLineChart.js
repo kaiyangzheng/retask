@@ -16,7 +16,7 @@ import {
 import { convertUtcToLocal } from '../../utils/dateHelpers';
 import './ProgressLineChart.css';
 
-export default function ProgressLineChart({ reviewSessions, dataLoaded, tasks }) {
+export default function ProgressLineChart({ reviewSessions, dataLoaded, tasks, theme }) {
   const timeframeSelectData = [
     {label: 'Week', value: 'week'},
     {label: 'Month', value: 'month'},
@@ -182,7 +182,9 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded, tasks })
                 setTimeframe(e);
             }}/>
         </div>
-        <div className="progress-line-chart-plot">
+        <div className="progress-line-chart-plot" style={{
+            backgroundColor: theme == 'dark' ? '#1b1d23' : '#fff',
+        }}>
             {!dataLoaded ? <Placeholder.Graph active/> : 
             <div>
                 {chartData.length > 0 ? <ResponsiveContainer width="99%" aspect={6.5/1}>
@@ -196,7 +198,9 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded, tasks })
                         <Line type="monotone" dataKey="count" stroke={chartStrokeColor} activeDot={{r: 8}} name="# Review Sessions"/>
                     </LineChart>
                 </ResponsiveContainer> : 
-                <div className="progress-line-chart-plot no-plot">
+                <div className="progress-line-chart-plot no-plot" style={{
+                    backgroundColor: theme == 'dark' ? '#1b1d23' : '#fff',
+                }}>
                     <p>No review sessions</p>
                 </div>}
             </div>}

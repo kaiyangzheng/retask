@@ -5,7 +5,7 @@ import ProgressLineChart from '../../components/ProgressLineChart/ProgressLineCh
 import TaskTable from '../../components/TaskTable/TaskTable';
 import './Home.css';
 
-export default function Home({ loginInfo, currentTime, user, reviewSessions, tasks, taskTypes, dataLoaded, openAddModal, setOpenAddModal, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal, setEditTaskId, setOpenEditModal, setModifyType, setOpenModifyModal }) {
+export default function Home({ loginInfo, currentTime, user, reviewSessions, tasks, taskTypes, dataLoaded, openAddModal, setOpenAddModal, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal, setEditTaskId, setOpenEditModal, setModifyType, setOpenModifyModal, theme }) {
   useEffect(()=>{
     document.title = "Retask | Home";
   }, [])
@@ -17,7 +17,7 @@ export default function Home({ loginInfo, currentTime, user, reviewSessions, tas
         <Modifygroup loginInfo={loginInfo} setOpenAddModal={setOpenAddModal} setModifyType={setModifyType} setOpenModifyModal={setOpenModifyModal}/>
       </div>
       <div className="home-chart-container">
-        <ProgressLineChart reviewSessions={reviewSessions} dataLoaded={dataLoaded} tasks={tasks}/>
+        <ProgressLineChart reviewSessions={reviewSessions} dataLoaded={dataLoaded} tasks={tasks} theme={theme}/>
       </div>
       <div className="home-table-container">
         <TaskTable tasks={tasks} taskTypes={taskTypes} dataLoaded={dataLoaded} currentTime={currentTime} user={user} reloadData={reloadData} setReloadData={setReloadData} setReviewTaskId={setReviewTaskId} setReviewSessionId={setReviewSessionId} setOpenReviewModal={setOpenReviewModal} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>

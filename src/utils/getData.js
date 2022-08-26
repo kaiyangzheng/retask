@@ -33,6 +33,10 @@ export async function getGoals(setGoals){
 export async function getReviewSessions(setReviewSessions){
     return axiosInstance.get('/api/v1/review-session/')
     .then(res=>{
+        if (res.data.message){
+            setReviewSessions([]);
+            return;
+        }
         setReviewSessions(res.data);
     })
     .catch(err=>{

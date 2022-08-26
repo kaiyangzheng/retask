@@ -1,19 +1,41 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     Calendar,
     Badge,
     Whisper,
     Popover,
-    Placeholder
+    Placeholder,
+    Panel,
+    List
 } from 'rsuite';
 import { convertUtcToLocal } from '../../utils/dateHelpers';
 import './Calendar.css';
 
-export default function TaskCalendar({tasks, reviewSessions, dataLoaded}) {
+export default function TaskCalendar({tasks, reviewSessions, dataLoaded, currentTime}) {
+  const [selectedDate, setSelectedDate] = useState(convertUtcToLocal(new Date()));
+  const [dateReviewSessions, setDateReviewSessions] = useState([]);
+  const [dateTasks, setDateTasks] = useState([]);
+  const [dateAddedTasks, setDateAddedTasks] = useState([]);
 
   useEffect(()=>{
     document.title = 'Retask | Calendar'
   }, [])
+
+  useEffect(()=>{
+    let dateReviewSessions = reviewSessions.filter((reviewSession)=>{
+      return convertUtcToLocal(reviewSession.time_finished) == selectedDate;
+    })
+    let dateTasks = tasks.filter((task)=>{
+      return convertUtcToLocal(task.next_review_date) == selectedDate;
+    })
+
+    let dateAddedTasks = tasks.filter((task)=>{
+      return convertUtcToLocal(task.date_added) == selectedDate;
+    })
+    setDateReviewSessions(dateReviewSessions);
+    setDateTasks(dateTasks);
+    setDateAddedTasks(dateAddedTasks);
+  }, [selectedDate])
 
   function renderCell(date) {
     let dateReviewSessions = reviewSessions.filter((reviewSession)=>{
@@ -90,8 +112,27 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded}) {
     }
   }
   return (
+    <>
     <div className="calendar-container">
-        {dataLoaded ? <Calendar bordered renderCell={renderCell}/> : <Placeholder.Graph active height={700}/>}
+        {dataLoaded ? <Calendar bordered renderCell={renderCell} onChange={(e)=>setSelectedDate(convertUtcToLocal(e))}/> : <Placeholder.Graph active height={700}/>}
     </div>
+    <div className="calendar-day-info-container">
+      {dataLoaded ? <Panel bordered className="calendar-day-info-panel">
+        <div className="calendar-day-info-title">
+          <h2>{selectedDate}</h2>
+        </div>
+        <div className="calendar-day-info-content">
+          <Panel accordian bordered>
+            {dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 ? <p style={{textAlign: 'center'}}>No data</p> : 
+            <div>
+            {dateTasks.length > 0 && dateTasks.map((task)=>{
+              return <Panel header={task.name}></Panel> 
+            })}
+            </div>}
+          </Panel>
+        </div>
+      </Panel> : <Placeholder.Graph active height={300}/>}
+    </div>
+    </>
   )
 }

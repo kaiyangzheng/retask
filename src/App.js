@@ -141,11 +141,13 @@ function App() {
                 setOpenEditModal={setOpenEditModal}
                 setModifyType={setModifyType}
                 setOpenModifyModal={setOpenModifyModal}
+                theme={theme}
               />} />
               <Route path="/calendar" element={<Calendar
                 tasks={tasks}
                 reviewSessions={reviewSessions}
                 dataLoaded={dataLoaded}
+                currentTime={currentTime}
               />}/>
             </Routes>
           </Sidebar>
