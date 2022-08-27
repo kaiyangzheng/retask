@@ -1,9 +1,9 @@
 import axiosInstance from './axiosAPI';
 
-export async function getUser(setUser){
+export async function getUsers(setUser){
     return axiosInstance.get('/api/v1/user/')
     .then(res=>{
-        setUser(res.data[0]);
+        setUser(res.data);
     })
     .catch(err=>{
         console.log(err)

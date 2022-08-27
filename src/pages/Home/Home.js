@@ -17,7 +17,7 @@ function getWindowDimensions() {
   };
 }
 
-export default function Home({ loginInfo, currentTime, user, reviewSessions, tasks, taskTypes, dataLoaded, openAddModal, setOpenAddModal, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal, setEditTaskId, setOpenEditModal, setModifyType, setOpenModifyModal, theme }) {
+export default function Home({ loginInfo, currentTime, users, reviewSessions, tasks, taskTypes, dataLoaded, openAddModal, setOpenAddModal, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal, setEditTaskId, setOpenEditModal, setModifyType, setOpenModifyModal, theme }) {
   const location = useLocation();
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
@@ -50,7 +50,7 @@ export default function Home({ loginInfo, currentTime, user, reviewSessions, tas
         <ProgressLineChart reviewSessions={reviewSessions} dataLoaded={dataLoaded} tasks={tasks} theme={theme}/>
       </div>
       <div className="home-table-container">
-        <TaskTable tasks={tasks} taskTypes={taskTypes} dataLoaded={dataLoaded} currentTime={currentTime} user={user} reloadData={reloadData} setReloadData={setReloadData} setReviewTaskId={setReviewTaskId} setReviewSessionId={setReviewSessionId} setOpenReviewModal={setOpenReviewModal} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>
+        <TaskTable tasks={tasks} taskTypes={taskTypes} dataLoaded={dataLoaded} currentTime={currentTime} users={users} reloadData={reloadData} setReloadData={setReloadData} setReviewTaskId={setReviewTaskId} setReviewSessionId={setReviewSessionId} setOpenReviewModal={setOpenReviewModal} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>
       </div>
     </div>
     </>

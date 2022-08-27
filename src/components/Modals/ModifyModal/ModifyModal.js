@@ -17,7 +17,7 @@ import {AiFillHeart, AiOutlineHeart} from 'react-icons/ai'
 import axiosInstance from '../../../utils/axiosAPI';
 import './ModifyModal.css';
 
-export default function ModifyModal({tasks, taskTypes, user, currentTime, dataLoaded, openModifyModal, setOpenModifyModal, type, reloadData, setReloadData, setEditTaskId, setOpenEditModal}) {
+export default function ModifyModal({tasks, taskTypes, users, currentTime, dataLoaded, openModifyModal, setOpenModifyModal, type, reloadData, setReloadData, setEditTaskId, setOpenEditModal}) {
   const { Column, HeaderCell, Cell } = Table;
   const [filteredTasks, setFilteredTasks] = useState(tasks);
   const [tableHeight, setTableHeight] = useState(0);
@@ -160,9 +160,23 @@ export default function ModifyModal({tasks, taskTypes, user, currentTime, dataLo
                     <Column width={125}>
                         <HeaderCell>Users</HeaderCell>
                         <Cell>
-                            <span className="user-pill" style={{
-                                background: stringToColor(user.username[0])
-                            }}>{user.username}</span>
+                            {rowData => {
+                                let usernames = [];
+                                let taskUsers = [rowData.user];
+                                taskUsers.map((user)=>{
+                                    let username = users.filter((compareUser)=>compareUser.id == user)[0].username;
+                                    usernames.push(username);
+                                })
+                                return <div className="user-container">
+                                    {usernames.map((username)=>{
+                                        return <span className="user-pill" style={{
+                                            background: stringToColor(username)
+                                        }}>
+                                            {username}
+                                        </span>
+                                    })}
+                                </div>
+                            }}
                         </Cell>
                     </Column>
                     <Column width={75} align="right">

@@ -19,7 +19,7 @@ import EditModal from './components/Modals/EditModal/EditModal';
 import ModifyModal from './components/Modals/ModifyModal/ModifyModal';
 import Calendar from './pages/TaskCalendar/TaskCalendar';
 import {
-  getUser,
+  getUsers,
   getTasks,
   getGoals,
   getReviewSessions,
@@ -42,7 +42,7 @@ function App() {
   // data 
   const [dataLoaded, setDataLoaded] = useState(false);
   const [tasks, setTasks] = useState([]);
-  const [user, setUser] = useState({});
+  const [users, setUsers] = useState({});
   const [goals, setGoals] = useState({});
   const [reviewSessions, setReviewSessions] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
@@ -72,7 +72,7 @@ function App() {
 
   useEffect(() => {
     const getData = async () => {
-      await getUser(setUser);
+      await getUsers(setUsers);
       await getTasks(setTasks);
       await getGoals(setGoals);
       await getReviewSessions(setReviewSessions);
@@ -110,7 +110,7 @@ function App() {
         <AddModal openAddModal={openAddModal} setOpenAddModal={setOpenAddModal} reloadData={reloadData} setReloadData={setReloadData} setOpenReviewModal={setOpenReviewModal} setReviewTaskId={setReviewTaskId} setReviewSessionId={setReviewSessionId}/>
         <ReviewModal openReviewModal={openReviewModal} setOpenReviewModal={setOpenReviewModal} reloadData={reloadData} setReloadData={setReloadData} reviewTaskId={reviewTaskId} reviewSessionId={reviewSessionId} tasks={tasks}/>
         <EditModal openEditModal={openEditModal} setOpenEditModal={setOpenEditModal} reloadData={reloadData} setReloadData={setReloadData} editTaskId={editTaskId} tasks={tasks}/>
-        <ModifyModal tasks={tasks} taskTypes={taskTypes} user={user} currentTime={currentTime} dataLoaded={dataLoaded} openModifyModal={openModifyModal} setOpenModifyModal={setOpenModifyModal} type={modifyType} reloadData={reloadData} setReloadData={setReloadData} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>
+        <ModifyModal tasks={tasks} taskTypes={taskTypes} currentTime={currentTime} users={users} dataLoaded={dataLoaded} openModifyModal={openModifyModal} setOpenModifyModal={setOpenModifyModal} type={modifyType} reloadData={reloadData} setReloadData={setReloadData} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>
         <BrowserRouter>
         <Appbar theme={theme} setTheme={setTheme} navColor={navColor} loginInfo={loginInfo}/>
           <Sidebar navColor={navColor} loginInfo={loginInfo} setLoginInfo={setLoginInfo}>
@@ -126,7 +126,6 @@ function App() {
                 loginInfo={loginInfo}
                 dataLoaded={dataLoaded}
                 currentTime={currentTime}
-                user={user}
                 reviewSessions={reviewSessions}
                 tasks={tasks}
                 taskTypes={taskTypes}
@@ -142,6 +141,7 @@ function App() {
                 setModifyType={setModifyType}
                 setOpenModifyModal={setOpenModifyModal}
                 theme={theme}
+                users={users}
               />} />
               <Route path="/calendar" element={<Calendar
                 tasks={tasks}

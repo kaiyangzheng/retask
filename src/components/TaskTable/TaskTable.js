@@ -23,7 +23,7 @@ function getWindowDimensions() {
     };
   }
 
-export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, user, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal, setEditTaskId, setOpenEditModal }) {
+export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, users, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal, setEditTaskId, setOpenEditModal }) {
   const { Column, HeaderCell, Cell } = Table;
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
   const [tableHeight, setTableHeight] = useState(0);
@@ -176,9 +176,26 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
                     <Column width={150}>
                         <HeaderCell>Users</HeaderCell>
                         <Cell>
-                            <span className="user-pill" style={{
+                        {rowData => {
+                                let usernames = [];
+                                let taskUsers = [rowData.user];
+                                taskUsers.map((user)=>{
+                                    let username = users.filter((compareUser)=>compareUser.id == user)[0].username;
+                                    usernames.push(username);
+                                })
+                                return <div className="user-container">
+                                    {usernames.map((username)=>{
+                                        return <span className="user-pill" style={{
+                                            background: stringToColor(username)
+                                        }}>
+                                            {username}
+                                        </span>
+                                    })}
+                                </div>
+                            }}
+                            {/* <span className="user-pill" style={{
                                 background: stringToColor(user.username[0])
-                            }}>{user.username}</span>
+                            }}>{user.username}</span> */}
                         </Cell>
                     </Column>
                     <Column width={100} align="right">
