@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Sidenav, Nav, Toggle } from 'rsuite';
+import { Sidenav, Nav, Toggle, Container } from 'rsuite';
 import DashboardIcon from '@rsuite/icons/legacy/Dashboard';
 import CalendarIcon from '@rsuite/icons/Calendar';
 import HomeIcon from '@rsuite/icons/legacy/Home';
@@ -13,6 +13,7 @@ import {
     useNavigate,
     Link
 } from 'react-router-dom';
+import './Sidebar.css';
 
 function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -133,6 +134,10 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
                         </Nav>
                     </Sidenav.Body>
                 </Sidenav>
+            </div>}
+            {windowDimensions.width <= 768 && 
+            <div className="bottom-nav-container">
+
             </div>}
             <div style={{
                 flex: 1,

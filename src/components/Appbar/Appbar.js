@@ -30,7 +30,6 @@ export default function Appbar({theme, setTheme, navColor, loginInfo}){
                     <Nav.Item icon={<IoMdMoon/>} onClick={()=>handleThemeChange('dark')}>Dark</Nav.Item>
                 :
                     <Nav.Item icon={<MdLightbulb/>} onClick={()=>handleThemeChange('light')}>Light</Nav.Item>}
-                <Nav.Item icon={<IoMdSettings />}>Settings</Nav.Item>
                 <Nav.Item>
                     {!loginInfo.isLoggedIn ? 
                         <Link to="/login">

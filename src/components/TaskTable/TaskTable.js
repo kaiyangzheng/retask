@@ -176,7 +176,7 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
                     <Column width={150}>
                         <HeaderCell>Users</HeaderCell>
                         <Cell>
-                        {rowData => {
+                            {rowData => {
                                 let usernames = [];
                                 let taskUsers = [rowData.user];
                                 taskUsers.map((user)=>{
@@ -193,9 +193,6 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
                                     })}
                                 </div>
                             }}
-                            {/* <span className="user-pill" style={{
-                                background: stringToColor(user.username[0])
-                            }}>{user.username}</span> */}
                         </Cell>
                     </Column>
                     <Column width={100} align="right">
