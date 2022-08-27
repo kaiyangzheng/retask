@@ -1,3 +1,9 @@
+.calendar-page-container{
+    width: calc(100vw - 50px);
+    display: flex;
+    flex-direction: column;
+}
+
 .calendar-breadcrumb-container{
     margin: 0 20px; 
     margin-top: 5px;

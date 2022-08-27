@@ -174,78 +174,82 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
   }
   return (
     <>
-    <div className="calendar-breadcrumb-container">
-      <BreadcrumbHeader location={location}/>
-    </div>
-    <div className="calendar-container">
-        {dataLoaded ? <Calendar compact={windowDimensions.width<=768} bordered renderCell={renderCell} onChange={(e)=>setSelectedDate(convertUtcToLocal(e))}/> : <Placeholder.Graph active height={700}/>}
-    </div>
-    <div className="calendar-day-info-container">
-      {dataLoaded ? <Panel bordered className="calendar-day-info-panel">
-        <div className="calendar-day-info-title">
-          <h2>{selectedDate} </h2><p>{dateDifferenceMessage(new Date(currentTime), new Date(selectedDate))}</p>
-        </div>
-        <div className="calendar-day-info-content">
-          <PanelGroup accordion bordered={dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 ? false : true}>
-            {dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 && <p style={{textAlign: 'center', padding: '20px', marginBottom: '20px'}}>No data</p>}
-            {dateTasks.length > 0 && dateTasks.map((task)=>{
-              return <Panel header={
-                <span className="calendar-panel-header"><Badge className="calendar-badge next-review"/> <strong>Todo&nbsp;</strong>review {task.name}</span>
-              } expanded={expandedTasks[task.id]} onClick={()=>handleClickTask(task.id, true)} id={`task-${task.id}`}>
-                <div className="calendar-detail">
-                  <div className="description">
-                    Description: {task.description ? task.description : 'None'}
+    <div className="calendar-page-container" style={{
+      width: windowDimensions.width <= 768 && '100vw'
+    }}>
+      <div className="calendar-breadcrumb-container">
+        <BreadcrumbHeader location={location}/>
+      </div>
+      <div className="calendar-container">
+          {dataLoaded ? <Calendar compact={windowDimensions.width<=768} bordered renderCell={renderCell} onChange={(e)=>setSelectedDate(convertUtcToLocal(e))}/> : <Placeholder.Graph active height={700}/>}
+      </div>
+      <div className="calendar-day-info-container">
+        {dataLoaded ? <Panel bordered className="calendar-day-info-panel">
+          <div className="calendar-day-info-title">
+            <h2>{selectedDate} </h2><p>{dateDifferenceMessage(new Date(currentTime), new Date(selectedDate))}</p>
+          </div>
+          <div className="calendar-day-info-content">
+            <PanelGroup accordion bordered={dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 ? false : true}>
+              {dateTasks.length == 0 && dateReviewSessions.length == 0 && dateAddedTasks.length == 0 && <p style={{textAlign: 'center', padding: '20px', marginBottom: '20px'}}>No data</p>}
+              {dateTasks.length > 0 && dateTasks.map((task)=>{
+                return <Panel header={
+                  <span className="calendar-panel-header"><Badge className="calendar-badge next-review"/> <strong>Todo&nbsp;</strong>review {task.name}</span>
+                } expanded={expandedTasks[task.id]} onClick={()=>handleClickTask(task.id, true)} id={`task-${task.id}`}>
+                  <div className="calendar-detail">
+                    <div className="description">
+                      Description: {task.description ? task.description : 'None'}
+                    </div>
+                    <div className="previous-review">
+                      Previous review: {convertUtcToLocal(task.prev_review_date)} ({new Date(task.prev_review_date).toLocaleTimeString()})
+                    </div>
+                    <div className="quality">
+                      Quality: {task.quality}
+                    </div>
+                    <div className="repetitions">
+                      Repetitions: {task.repetitions}
+                    </div>
                   </div>
-                  <div className="previous-review">
-                    Previous review: {convertUtcToLocal(task.prev_review_date)} ({new Date(task.prev_review_date).toLocaleTimeString()})
-                  </div>
-                  <div className="quality">
-                    Quality: {task.quality}
-                  </div>
-                  <div className="repetitions">
-                    Repetitions: {task.repetitions}
-                  </div>
-                </div>
-              </Panel>
-            })}
+                </Panel>
+              })}
 
-            {dateAddedTasks.length > 0 && dateAddedTasks.map((task)=>{
-              return <Panel header={
-                <span className="calendar-panel-header"><Badge className="calendar-badge add"/> Added {task.name}</span>
-              } expanded={expandedTasks[task.id]} onClick={()=>handleClickTask(task.id, true)} id={`task-${task.id}`}>
-                <div className="calendar-detail">
-                  <div className="description">
-                    Description: {task.description ? task.description : 'None'}
+              {dateAddedTasks.length > 0 && dateAddedTasks.map((task)=>{
+                return <Panel header={
+                  <span className="calendar-panel-header"><Badge className="calendar-badge add"/> Added {task.name}</span>
+                } expanded={expandedTasks[task.id]} onClick={()=>handleClickTask(task.id, true)} id={`task-${task.id}`}>
+                  <div className="calendar-detail">
+                    <div className="description">
+                      Description: {task.description ? task.description : 'None'}
+                    </div>
+                    <div className="time-added">
+                      Time added: {(new Date(task.date_added)).toLocaleTimeString()}
+                    </div>
                   </div>
-                  <div className="time-added">
-                    Time added: {(new Date(task.date_added)).toLocaleTimeString()}
-                  </div>
-                </div>
-              </Panel>
-            })}
+                </Panel>
+              })}
 
-            {dateReviewSessions.length > 0 && dateReviewSessions.map((reviewSession)=>{
-              let task = tasks.filter((task)=>task.id == reviewSession.task)[0]
-              return <Panel header={
-                <span className="calendar-panel-header"><Badge className="calendar-badge review"/> Reviewed {task.name}</span>
-              } expanded={expandedReviews[reviewSession.id]} onClick={()=>handleClickReview(reviewSession.id, true)} id={`review-${reviewSession.id}`}>
-                <div className="calendar-detail">
-                  <div className="description">
-                    Description: {task.description ? task.description : 'None'}
+              {dateReviewSessions.length > 0 && dateReviewSessions.map((reviewSession)=>{
+                let task = tasks.filter((task)=>task.id == reviewSession.task)[0]
+                return <Panel header={
+                  <span className="calendar-panel-header"><Badge className="calendar-badge review"/> Reviewed {task.name}</span>
+                } expanded={expandedReviews[reviewSession.id]} onClick={()=>handleClickReview(reviewSession.id, true)} id={`review-${reviewSession.id}`}>
+                  <div className="calendar-detail">
+                    <div className="description">
+                      Description: {task.description ? task.description : 'None'}
+                    </div>
+                    <div className="time-elapsed">
+                      Time spent: {secondsToHms(reviewSession.time_elapsed)} ({(new Date(reviewSession.time_started)).toLocaleTimeString()} - {(new Date(reviewSession.time_finished)).toLocaleTimeString()})
+                    </div>
+                    <div className="quality">
+                      New quality: {reviewSession.quality}
+                    </div>
                   </div>
-                  <div className="time-elapsed">
-                    Time spent: {secondsToHms(reviewSession.time_elapsed)} ({(new Date(reviewSession.time_started)).toLocaleTimeString()} - {(new Date(reviewSession.time_finished)).toLocaleTimeString()})
-                  </div>
-                  <div className="quality">
-                    New quality: {reviewSession.quality}
-                  </div>
-                </div>
-              </Panel>
-            })}
+                </Panel>
+              })}
 
-          </PanelGroup>
-        </div>
-      </Panel> : <Placeholder.Graph active height={300}/>}
+            </PanelGroup>
+          </div>
+        </Panel> : <Placeholder.Graph active height={300}/>}
+      </div>
     </div>
     </>
   )

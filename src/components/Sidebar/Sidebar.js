@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Sidenav, Nav, Toggle } from 'rsuite';
 import DashboardIcon from '@rsuite/icons/legacy/Dashboard';
 import CalendarIcon from '@rsuite/icons/Calendar';
@@ -14,8 +14,17 @@ import {
     Link
 } from 'react-router-dom';
 
+function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+
 export default function Sidebar({ children, navColor, loginInfo, setLoginInfo }){
     const [expanded, setExpanded] = useState(false);
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
     const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('isLoggedIn');
@@ -30,11 +39,22 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
         })
         navigate('/login');
     }
+
+    useEffect(() => {
+        function handleResize() {
+          setWindowDimensions(getWindowDimensions());
+        }
+    
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
+
+
     return <>
         <div style={{
             display: 'flex',
         }}>
-            <div style={{
+            {windowDimensions.width > 768 && <div style={{
                 width: expanded ? 240 : 50,
             }}>
                 <Sidenav expanded={expanded} appearance="subtle" style={{
@@ -113,7 +133,7 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
                         </Nav>
                     </Sidenav.Body>
                 </Sidenav>
-            </div>
+            </div>}
             <div style={{
                 flex: 1,
             }}>
