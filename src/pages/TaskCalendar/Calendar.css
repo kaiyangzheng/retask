@@ -1,5 +1,5 @@
 .calendar-page-container{
-    width: calc(100vw - 50px);
+    width: calc(100vw - 70px);
     display: flex;
     flex-direction: column;
 }
