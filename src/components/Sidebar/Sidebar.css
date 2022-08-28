@@ -1,5 +1,12 @@
 .bottom-nav-container{
     position: fixed;
-    bottom: 0;
+    bottom: 0px;
     width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.bottom-nav{
+    display: flex;
+    justify-content: space-around;
 }

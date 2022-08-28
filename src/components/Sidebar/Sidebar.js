@@ -9,6 +9,7 @@ import BranchIcon from '@rsuite/icons/Branch';
 import GearIcon from '@rsuite/icons/Gear';
 import UserInfoIcon from '@rsuite/icons/UserInfo';
 import ExitIcon from '@rsuite/icons/Exit';
+import Avatar from '@rsuite/icons/legacy/Avatar';
 import {
     useNavigate,
     Link,
@@ -64,9 +65,6 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
                 <Sidenav expanded={expanded} appearance="subtle" style={{
                     display: loginInfo.isLoggedIn ? 'block' : 'none',
                 }}>
-                    {/* <Sidenav.Toggle expanded={expanded} onToggle={expanded => setExpanded(expanded)} style={{
-                                color: navColor,    
-                                }} /> */}
                     <Sidenav.Body>
                         <Nav activeKey={active}>
                             <Nav.Item eventKey="home" as={Link} to="/home" icon={<HomeIcon style={{
@@ -116,7 +114,7 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
                             <Nav.Item eventKey="settings" as={Link} to="/settings" icon={<GearIcon style={{
                                 color: active!='settings' && navColor,    
                                 }}/>} style={{
-                                    color: navColor,    
+                                    color: navColor
                                     }} onClick={()=>setActive('settings')}>
                                 Settings
                             </Nav.Item>
@@ -139,8 +137,20 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
                 </Sidenav>
             </div>}
             {windowDimensions.width <= 768 && 
-            <div className="bottom-nav-container">
-
+            <div className="bottom-nav-container" style={{
+                zIndex: 9999,
+                backgroundColor: navColor === '#000' ? 'white' : 'black',
+                borderTop: '1px solid black'
+            }}>
+                <Nav activekey={active} appearance="subtle" className="bottom-nav">
+                    <Nav.Item eventKey="home" as={Link} to="/home" icon={<HomeIcon/>}/>
+                    <Nav.Item eventKey="dashboard" as={Link} to="/dashboard" icon={<DashboardIcon/>}/>
+                    <Nav.Item eventKey="calendar" as={Link} to="/calendar" icon={<CalendarIcon/>}/>
+                    <Nav.Item eventKey="friends" as={Link} to="/friends" icon={<PeoplesIcon/>}/>
+                    <Nav.Item eventKey="chat" as={Link} to="/chat" icon={<MessageIcon/>}/>
+                    <Nav.Item eventKey="collaborations" as={Link} to="/collaborations" icon={<BranchIcon/>}/>
+                    <Nav.Item eventKey="mobile-profile" as={Link} to="/profile" icon={<Avatar/>}/>
+                </Nav>
             </div>}
             <div style={{
                 flex: 1,

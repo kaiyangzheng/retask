@@ -32,12 +32,6 @@
     align-items: center;
 }
 
-.calendar-item:hover{
-    cursor: pointer;
-    color: #007FFF;
-    text-decoration: underline;
-}
-
 .calendar-day-info-container{
     margin: 0 20px;
     margin-top: 20px;

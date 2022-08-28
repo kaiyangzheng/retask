@@ -126,8 +126,7 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
               <Popover>
                 {list.map((task, index)=>{
                   return <>
-                  <a href={task.type == 'dateReviewSession' ? `#review-${task.id}` : `#task-${task.id}`}>
-                    <div onClick={task.type == 'dateReviewSession' ? ()=>handleClickReview(task.id, false) : ()=>handleClickTask(task.id, false)}>
+                    <div>
                       {task.type == 'dateTask' &&
                         <p className="calendar-item"><strong>Todo</strong> review {task.name}</p>}
                       {task.type == 'dateReviewSession' && 
@@ -135,7 +134,6 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
                       {task.type == 'dateAddedTask' && 
                         <p className="calendar-item">Added {task.name}</p>}
                     </div>
-                  </a>
                   </>
                 })}
               </Popover>
@@ -148,8 +146,7 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
       return <div className="calender-list-container">
         <ul className="calendar-list">
           {displayList.map((task, index)=>{
-            return <a href={task.type == 'dateReviewSession' ? `#review-${task.id}` : `#task-${task.id}`}>
-              <li key={index} className="calendar-item" onClick={task.type == 'dateReviewSession' ? ()=>handleClickReview(task.id, false) : ()=>handleClickTask(task.id, false)}>
+            return <li key={index} className="calendar-item">
                     {task.type == 'dateReviewSession' && <>
                       <Badge className="calendar-badge review" />
                       <span className="calendar-item-content">{`Reviewed ${tasks.filter((taski) => taski.id ===task.task)[0].name}`}</span>
@@ -163,7 +160,6 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
                       <span className="calendar-item-content"><strong>Todo</strong> <span>review {task.name}</span></span>
                     </>}
               </li>
-            </a>
           })}
           {windowDimensions.width > 768 && moreCount ? moreItem : null}
         </ul>
