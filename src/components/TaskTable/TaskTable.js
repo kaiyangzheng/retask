@@ -150,24 +150,34 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
                                 <div className="status-container">
                                     {taskTypes.in_progress.map(task=>{
                                         if (task.id==rowData.id){
-                                            displaySuccess = false;
                                             return <StatusPill type="progress" text="In progress"/>
                                         }
                                     })}
                                     {taskTypes.next_up.map(task=>{
                                         if (task.id==rowData.id){
-                                            displaySuccess = false;
                                             return <StatusPill type="warning" text="Upcoming"/>
                                         }
                                     })}
                                     {taskTypes.waiting_for_review.map(task=>{
                                         if (task.id==rowData.id){
-                                            displaySuccess = false
                                             return <StatusPill type="danger" text="Waiting"/>
                                         }
                                     })}
-                                    {convertUtcToLocal(rowData.next_review_date) == convertUtcToLocal(currentTime) && <StatusPill type="danger" text="Due"/>}
-                                    {displaySuccess && convertUtcToLocal(rowData.next_review_date) !== convertUtcToLocal(currentTime) && <StatusPill type="success" text="All clear"/>}       
+                                    {taskTypes.due.map(task=>{
+                                        if (task.id==rowData.id){
+                                            return <StatusPill type="danger" text="Due"/>
+                                        }
+                                    })}
+                                    {taskTypes.overdue.map(task=>{
+                                        if (task.id==rowData.id){
+                                            return <StatusPill type="danger" text="Overdue"/>
+                                        }
+                                    })}
+                                    {taskTypes.all_clear.map(task=>{
+                                        if (task.id==rowData.id){
+                                            return <StatusPill type="success" text="All clear"/>
+                                        }
+                                    })}
                                     </div>
                                 </>
                             }}
