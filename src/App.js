@@ -37,6 +37,7 @@ function App() {
     refresh: '',
   });
   const [currentTime, setCurrentTime] = useState();
+  const [prevDataLoad, setPrevDataLoad] = useState();
   const [reloadData, setReloadData] = useState(0);
 
   // data 
@@ -78,12 +79,28 @@ function App() {
       await getReviewSessions(setReviewSessions);
       await getFriendRequests(setFriendRequests);
       await getTaskTypes(setTaskTypes);
+      setPrevDataLoad(new Date());
       setDataLoaded(true);
     }
     if (loginInfo.isLoggedIn){
       getData();
     }
   }, [loginInfo, reloadData]);
+
+  useEffect(() => {
+    if (currentTime && prevDataLoad){
+      let currentTimeDate = new Date(currentTime);
+      let currentTimeDay = currentTimeDate.getDate();
+      let currentTimeMonth = currentTimeDate.getMonth();
+      let currentTimeYear = currentTimeDate.getYear();
+      let prevDataLoadDay = prevDataLoad.getDate();
+      let prevDataLoadMonth = prevDataLoad.getMonth();
+      let prevDataLoadYear = prevDataLoad.getYear();
+      if (currentTimeDay > prevDataLoadDay || currentTimeMonth > prevDataLoadMonth || currentTimeYear > prevDataLoadYear){
+        setReloadData(!reloadData);
+      }
+    }
+  }, [currentTime])
   
   useEffect(()=>{
     if (theme === 'light'){
