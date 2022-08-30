@@ -41,6 +41,18 @@
     flex: 1;
 }
 
+@media screen and (max-width: 1024px){
+
+    .home-more-info-container{
+        flex-direction: column;
+        margin-right: 40px;
+    }
+
+    .more-info-item{
+        margin-top: 20px;
+    }
+}
+
 @media screen and (max-width: 768px){
     .home-intro-container{
         flex-direction: column;
@@ -52,12 +64,4 @@
         margin-right: 40px;
     }
 
-    .home-more-info-container{
-        flex-direction: column;
-        margin-right: 40px;
-    }
-
-    .more-info-item{
-        margin-top: 20px;
-    }
 }
