@@ -59,11 +59,11 @@ export default function Home({ loginInfo, currentTime, users, reviewSessions, ta
         </Panel>
         <Panel bordered className="more-info-item">
           <h4>Is it effective? How?</h4>
-          <p>Spaced repetition is effective because it inherently exploits the strenghts and weaknesses of the human brain. Our brains are not strong at memorizing over 5-7 new pieces of information at a time, but they are acute in strengthening memories encountered frequently over time. In fact, studies have shown that spaced learning increaes information retention by 200%.</p>
+          <p>Spaced repetition is effective because it inherently exploits the strenghts and weaknesses of the human brain. Our brains are not strong at memorizing over 5-7 new pieces of information at a time, but they are acute in strengthening memories encountered frequently over time. Studies have shown that spaced learning increaes information retention by 200%.</p>
           <p>Source: <a target="_blank" href="https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information">Spaced repetition: a hack to make your brain store information</a></p> 
         </Panel>
         <Panel bordered className="more-info-item">
-          <h4>SM2: A simple spaced repetition algorithm</h4>
+          <h4>SM2</h4>
           <p>Retask uses the SM2 spaced repetition algorithm, which takes in 4 inputs: quality, repetitions, previous ease factor, and previous interval, to compute the next date in which the user should review the task again. The algorithm returns 3 outputs: interval, repetitions, and ease factor, which are all inputted into the algorithm on its next call.</p>
           <p>Credits: <a href="https://github.com/thyagoluciano/sm2" target="_blank">Github - thyagoluciano</a></p>
         </Panel>
