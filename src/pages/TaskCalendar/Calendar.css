@@ -2,6 +2,7 @@
     width: calc(100vw - 70px);
     display: flex;
     flex-direction: column;
+    margin-bottom: 50px;
 }
 
 .calendar-breadcrumb-container{
