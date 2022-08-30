@@ -17,6 +17,7 @@ import AddModal from './components/Modals/AddModal/AddModal';
 import ReviewModal from './components/Modals/ReviewModal/ReviewModal';
 import EditModal from './components/Modals/EditModal/EditModal';
 import ModifyModal from './components/Modals/ModifyModal/ModifyModal';
+import GoalsModal from './components/Modals/GoalsModal/GoalsModal';
 import Calendar from './pages/TaskCalendar/TaskCalendar';
 import {
   getUsers,
@@ -54,6 +55,7 @@ function App() {
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openModifyModal, setOpenModifyModal] = useState(false);
+  const [openGoalsModal, setOpenGoalsModal] = useState(false);
 
   // task actions
   const [reviewTaskId, setReviewTaskId] = useState(null);
@@ -79,7 +81,6 @@ function App() {
       await getReviewSessions(setReviewSessions);
       await getFriendRequests(setFriendRequests);
       await getTaskTypes(setTaskTypes);
-      setPrevDataLoad(new Date());
       setDataLoaded(true);
     }
     if (loginInfo.isLoggedIn){
@@ -128,6 +129,7 @@ function App() {
         <ReviewModal openReviewModal={openReviewModal} setOpenReviewModal={setOpenReviewModal} reloadData={reloadData} setReloadData={setReloadData} reviewTaskId={reviewTaskId} reviewSessionId={reviewSessionId} tasks={tasks}/>
         <EditModal openEditModal={openEditModal} setOpenEditModal={setOpenEditModal} reloadData={reloadData} setReloadData={setReloadData} editTaskId={editTaskId} tasks={tasks}/>
         <ModifyModal tasks={tasks} taskTypes={taskTypes} currentTime={currentTime} users={users} dataLoaded={dataLoaded} openModifyModal={openModifyModal} setOpenModifyModal={setOpenModifyModal} type={modifyType} reloadData={reloadData} setReloadData={setReloadData} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>
+        <GoalsModal openGoalsModal={openGoalsModal} setOpenGoalsModal={setOpenGoalsModal} reloadData={reloadData} setReloadData={setReloadData} goals={goals}/>
         <BrowserRouter>
         <Appbar theme={theme} setTheme={setTheme} navColor={navColor} loginInfo={loginInfo}/>
           <Sidebar navColor={navColor} loginInfo={loginInfo} setLoginInfo={setLoginInfo}>
@@ -157,6 +159,9 @@ function App() {
                 setOpenEditModal={setOpenEditModal}
                 setModifyType={setModifyType}
                 setOpenModifyModal={setOpenModifyModal}
+                setOpenGoalsModal={setOpenGoalsModal}
+                goals={goals}
+                setGoals={setGoals}
                 theme={theme}
                 users={users}
               />} />

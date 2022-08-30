@@ -2,6 +2,7 @@
     width: calc(100vw - 70px);
     display: flex;
     flex-direction: column;
+    margin-bottom: 100px;
 }
 
 .home-breadcrumb-container{
@@ -18,14 +19,45 @@
     margin-top: 20px;
 }
 
+.home-goals-container{
+    display: flex;
+    margin-top: 20px;
+}
+
 .home-table-container{
     display: flex;
     margin-top: 20px;
+}
+
+.home-more-info-container{
+    margin-top: 20px;
+    display: flex;
+}
+
+.more-info-item{
+    width: 100%;
+    margin: 0 20px;
+    padding: 20px;
+    flex: 1;
 }
 
 @media screen and (max-width: 768px){
     .home-intro-container{
         flex-direction: column;
         margin-right: 40px;
+    }
+
+    .home-goals-container{
+        flex-direction: column;
+        margin-right: 40px;
+    }
+
+    .home-more-info-container{
+        flex-direction: column;
+        margin-right: 40px;
+    }
+
+    .more-info-item{
+        margin-top: 20px;
     }
 }

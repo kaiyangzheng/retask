@@ -66,6 +66,12 @@ export function secondsToHms(seconds){
     }
 }
 
+export function hmsToSeconds(hms){
+    let a = hms.split(':');
+    let seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
+    return seconds;
+}
+
 export function dateDifferenceMessage(date1,date2){
     let difference = date1.getTime() - date2.getTime();
     let TotalDays = Math.floor(difference / (1000 * 3600 * 24));

@@ -5,9 +5,10 @@ import EditIcon from '@rsuite/icons/Edit';
 import TrashIcon from '@rsuite/icons/Trash';
 import HeartO from '@rsuite/icons/legacy/HeartO';
 import ModifyTasks from '../../svg/ModifyTasks';
+import LineChartIcon from '@rsuite/icons/LineChart';
 import './ModifyGroup.css';
 
-export default function ModifyGroup({ setOpenAddModal, setModifyType, setOpenModifyModal }) {
+export default function ModifyGroup({ setOpenAddModal, setModifyType, setOpenModifyModal, setOpenGoalsModal }) {
   return (
     <Panel bordered className="modify-group-panel">
       <div className="modify-group-container">
@@ -29,6 +30,13 @@ export default function ModifyGroup({ setOpenAddModal, setModifyType, setOpenMod
                 setOpenModifyModal(true);
                 setModifyType('Favorite')
               }}/>
+          </div>
+          <div className="modify-button-group">
+              <IconButton icon={<LineChartIcon style={{
+                backgroundColor: '#FF6F61'
+              }}/>} className="modify-button-goal" appearance='primary' style={{
+                backgroundColor: '#FF6F61',
+              }} onClick={()=>setOpenGoalsModal(true)}>Set goals</IconButton>
           </div>
           <div className="modify-group-svg">
               <ModifyTasks />

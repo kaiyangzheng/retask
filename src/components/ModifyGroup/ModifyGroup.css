@@ -42,6 +42,10 @@
         width: 75px;
     }
 
+    .modify-button-goal{
+        width: 330px;
+    }
+
     .modify-group-svg{
         display: flex;
     }
@@ -51,10 +55,18 @@
     .modify-button{
         width: 50px;
     }
+
+    .modify-button-goal{
+        width: 230px;
+    }
 }
 
 @media screen and (max-width: 320px){
     .modify-button{
         width: 40px;
+    }
+
+    .modify-button-goal{
+        width: 190px;
     }
 }

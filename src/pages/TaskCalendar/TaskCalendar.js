@@ -128,7 +128,7 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
                   return <>
                     <div>
                       {task.type == 'dateTask' &&
-                        <p className="calendar-item"><strong>Todo</strong> review {task.name}</p>}
+                        <p className="calendar-item"><strong>Todo&nbsp;</strong> review {task.name}</p>}
                       {task.type == 'dateReviewSession' && 
                         <p className="calendar-item">Reviewed {tasks.filter((taski) => taski.id ===task.task)[0].name}</p>}
                       {task.type == 'dateAddedTask' && 
