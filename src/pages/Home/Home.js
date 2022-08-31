@@ -61,12 +61,12 @@ export default function Home({ loginInfo, currentTime, users, reviewSessions, ta
           <p>Spaced repetition is a studying technique that helps you retain information faster and better. It accomplishes this by spacing out your review sessions based on how well you understand the topic. This has two advantages: 1. You don't have to cram everything all at once, and 2. The memories in your brain become stronger through repeated practice.</p>
           <p>Source: <a target="_blank" href="https://e-student.org/spaced-repetition/">Spaced Repetition: A Guide to the Technique</a></p>
         </Panel>
-        <Panel bordered className="more-info-item">
+        <Panel bordered className="more-info-item mt-20-768">
           <h4>Is it effective?</h4>
           <p>Spaced repetition is effective because it inherently exploits the strenghts and weaknesses of the human brain. Our brains are not strong at memorizing over 5-7 new pieces of information at a time, but they are acute in strengthening memories encountered frequently over time. Studies have shown that spaced learning increaes information retention by 200%.</p>
           <p>Source: <a target="_blank" href="https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information">Spaced repetition: a hack to make your brain store information</a></p> 
         </Panel>
-        <Panel bordered className="more-info-item">
+        <Panel bordered className="more-info-item mt-20-768 mb-20-768">
           <h4>SM2</h4>
           <p>Retask uses the SM2 spaced repetition algorithm, which takes in 4 inputs: quality, repetitions, previous ease factor, and previous interval, to compute the next date in which the user should review the task again. The algorithm returns 3 outputs: interval, repetitions, and ease factor, which are all inputted into the algorithm on its next call.</p>
           <p>Credits: <a href="https://github.com/thyagoluciano/sm2" target="_blank">Github - thyagoluciano</a></p>

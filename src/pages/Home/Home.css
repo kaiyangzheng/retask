@@ -1,5 +1,5 @@
 .home-container{    
-    width: calc(100vw - 70px);
+    width: calc(100vw - 50px);
     display: flex;
     flex-direction: column;
     margin-bottom: 50px;
@@ -51,10 +51,6 @@
         flex-direction: column;
         margin-right: 40px;
     }
-
-    .more-info-item{
-        margin-top: 20px;
-    }
 }
 
 @media screen and (max-width: 768px){
@@ -68,4 +64,11 @@
         margin-right: 40px;
     }
 
+    .mt-20-768{
+        margin-top: 20px;
+    }
+
+    .mb-20-768{
+        margin-bottom: 20px;
+    }
 }

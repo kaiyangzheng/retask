@@ -10,3 +10,8 @@
     display: flex;
     justify-content: space-around;
 }
+
+.bottom-nav > *{
+    width: 100%;
+    text-align: center;
+}

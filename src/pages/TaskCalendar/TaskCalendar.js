@@ -60,7 +60,7 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
     setDateReviewSessions(dateReviewSessions);
     setDateTasks(dateTasks);
     setDateAddedTasks(dateAddedTasks);
-  }, [selectedDate])
+  }, [selectedDate, dataLoaded])
 
   useEffect(()=>{
     if (tasks && reviewSessions){
@@ -177,9 +177,9 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
         <BreadcrumbHeader location={location}/>
       </div>
       <div className="calendar-container">
-          {dataLoaded ? <Calendar compact={windowDimensions.width<=768} bordered renderCell={renderCell} onChange={(e)=>setSelectedDate(convertUtcToLocal(e))}/> : <Placeholder.Graph active height={700}/>}
+          {dataLoaded ? <Calendar compact={windowDimensions.width<=768} bordered renderCell={renderCell} onChange={(e)=>setSelectedDate(convertUtcToLocal(e))} className="calendar"/> : <div className="calendar-placeholder"><Placeholder.Graph active height={700}/></div>}
       </div>
-      <div className="calendar-day-info-container">
+      <div className="calendar-day-info-container mb-20-768">
         {dataLoaded ? <Panel bordered className="calendar-day-info-panel">
           <div className="calendar-day-info-title">
             <h2>{selectedDate} </h2><p>{dateDifferenceMessage(new Date(currentTime), new Date(selectedDate))}</p>
@@ -207,7 +207,6 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
                   </div>
                 </Panel>
               })}
-
               {dateAddedTasks.length > 0 && dateAddedTasks.map((task)=>{
                 return <Panel header={
                   <span className="calendar-panel-header"><Badge className="calendar-badge add"/> Added {task.name}</span>
@@ -222,7 +221,6 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
                   </div>
                 </Panel>
               })}
-
               {dateReviewSessions.length > 0 && dateReviewSessions.map((reviewSession)=>{
                 let task = tasks.filter((task)=>task.id == reviewSession.task)[0]
                 return <Panel header={
@@ -241,7 +239,6 @@ export default function TaskCalendar({tasks, reviewSessions, dataLoaded, current
                   </div>
                 </Panel>
               })}
-
             </PanelGroup>
           </div>
         </Panel> : <Placeholder.Graph active height={300}/>}

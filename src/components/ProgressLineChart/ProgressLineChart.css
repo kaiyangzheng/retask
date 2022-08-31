@@ -28,13 +28,12 @@
     display: flex;
     flex-direction: column;
     background: #fff;
-    color: #000
+    color: #000;
 }
 
 .review-sessions-detail{
     display: flex;
     flex-direction: column;
-    
 }
 
 .review-session{

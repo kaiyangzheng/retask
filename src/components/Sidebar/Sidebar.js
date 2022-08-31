@@ -144,7 +144,7 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
                 zIndex: 9999,
                 backgroundColor: navColor === '#000' ? 'white' : 'black',
             }}>
-                <Nav activekey={active} appearance="subtle" className="bottom-nav">
+                <Nav activeKey={active} appearance="subtle" className="bottom-nav">
                     <Nav.Item eventKey="home" as={Link} to="/home" icon={<HomeIcon/>}/>
                     <Nav.Item eventKey="dashboard" as={Link} to="/dashboard" icon={<DashboardIcon/>}/>
                     <Nav.Item eventKey="calendar" as={Link} to="/calendar" icon={<CalendarIcon/>}/>

@@ -1,0 +1,30 @@
+.dashboard-container{
+    width: calc(100vw - 50px);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.dashboard-breadcrumb-container{
+    margin: 0 20px;
+    margin-top: 5px;
+}
+
+.dashboard-goal-progress-container{
+    display: flex;
+}
+
+.dashboard-progress-line-container{
+    display: flex;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 768px){
+    .mt-20-768{
+        margin-top: 20px;
+    }
+
+    .mb-20-768{
+        margin-bottom: 20px;
+    }
+}

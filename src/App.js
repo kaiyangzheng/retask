@@ -13,12 +13,13 @@ import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
+import Calendar from './pages/TaskCalendar/TaskCalendar';
+import Dashboard from './pages/Dashboard/Dashboard';
 import AddModal from './components/Modals/AddModal/AddModal';
 import ReviewModal from './components/Modals/ReviewModal/ReviewModal';
 import EditModal from './components/Modals/EditModal/EditModal';
 import ModifyModal from './components/Modals/ModifyModal/ModifyModal';
 import GoalsModal from './components/Modals/GoalsModal/GoalsModal';
-import Calendar from './pages/TaskCalendar/TaskCalendar';
 import {
   getUsers,
   getTasks,
@@ -170,6 +171,14 @@ function App() {
                 theme={theme}
                 users={users}
               />} />
+              <Route path="/dashboard" element={<Dashboard
+                tasks={tasks}
+                reviewSessions={reviewSessions}
+                taskStats={taskStats}
+                goals={goals}
+                dataLoaded={dataLoaded}
+                theme={theme}
+              />}/>
               <Route path="/calendar" element={<Calendar
                 tasks={tasks}
                 reviewSessions={reviewSessions}
