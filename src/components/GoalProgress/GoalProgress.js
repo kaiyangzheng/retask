@@ -12,7 +12,7 @@ export default function GoalProgress({taskStats, goals, dataLoaded}) {
   let averageTimeSpent = 0;
 
   console.log(taskStats);
-  if(!taskStats.message){
+  if(!taskStats.message && dataLoaded){
     totalTasksAdded = taskStats.basic_info.total_tasks_added;
     averageQuality = taskStats.stats.average_quality;
     averageRepetitions = taskStats.stats.average_repetitions;
