@@ -4,8 +4,11 @@ import {
     Form,
     ButtonToolbar,
     Button,
-    Input
+    Input,
+    Animation,
+    Placeholder
 } from 'rsuite';
+import Checkmark from '../../../svg/Checkmark';
 import axiosInstance from '../../../utils/axiosAPI';
 
 export default function AddModal({openAddModal, setOpenAddModal, reloadData, setReloadData, setOpenReviewModal, setReviewTaskId, setReviewSessionId}) {
@@ -13,15 +16,18 @@ export default function AddModal({openAddModal, setOpenAddModal, reloadData, set
     'name': '',
     'description': ''
   })
+  const [added, setAdded] = useState(false);
+
   const handleClose = () => {
     setOpenAddModal(false);
     setTask({
         'name': '',
         'description': ''
     })
+    setAdded(false);
   }
 
-  const handleAddTask = async () => {
+  const handleAddTask = async (review) => {
     return axiosInstance.post('/api/v1/task/', task)
     .then(res => {
         console.log(res);
@@ -30,6 +36,9 @@ export default function AddModal({openAddModal, setOpenAddModal, reloadData, set
             'name': '',
             'description': ''
         })
+        if (!review){
+            setAdded(true);
+        }
         return res;
     })
     .catch(err => {
@@ -38,7 +47,7 @@ export default function AddModal({openAddModal, setOpenAddModal, reloadData, set
   }
 
   const handleAddAndCompleteTask = async () => {
-    let addedTask = await handleAddTask();
+    let addedTask = await handleAddTask(true);
     return axiosInstance.post(`/api/v1/review-session/${addedTask.data.id}/`)
     .then(res => {
         setTask({
@@ -61,7 +70,7 @@ export default function AddModal({openAddModal, setOpenAddModal, reloadData, set
             <h3>Add task</h3>
         </Modal.Header>
         <Modal.Body>
-            <Form fluid>
+            {!added && openAddModal ? <Form fluid>
                 <Form.Group>
                     <Form.ControlLabel>Name</Form.ControlLabel>
                     <Form.Control name="name" autoComplete="off" value={task.name} onChange={(e)=>setTask({...task, ['name']: e})}/>
@@ -73,12 +82,25 @@ export default function AddModal({openAddModal, setOpenAddModal, reloadData, set
                 </Form.Group>
                 <Form.Group>
                     <ButtonToolbar>
-                        <Button color="blue" appearance="primary" onClick={handleAddTask}>Add</Button>
+                        <Button color="blue" appearance="primary" onClick={()=>handleAddTask(false)}>Add</Button>
                         <Button color="cyan" appearance="primary" onClick={handleAddAndCompleteTask}>Add and Complete</Button>
                         <Button color="red" appearance="primary" onClick={handleClose}>Cancel</Button>
                     </ButtonToolbar>
                 </Form.Group>
-            </Form>
+            </Form> : 
+            <div>
+                {added ? <Animation.Bounce in={added} timeout={3000}>
+                    <div className="updated-container">
+                        <h4>Added task!</h4>
+                        <Checkmark/>
+                        <ButtonToolbar className="updated-button">
+                            <Button color="blue" appearance='primary' onClick={()=>setAdded(false)}>Add another</Button>
+                            <Button color="red" appearance="primary" onClick={handleClose}>Close</Button>
+                        </ButtonToolbar>
+                    </div>
+                </Animation.Bounce> :
+                <Placeholder.Graph/>}
+            </div>}
         </Modal.Body>
     </Modal>
   )

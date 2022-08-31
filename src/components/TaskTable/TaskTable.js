@@ -6,7 +6,8 @@ import {
     Popover,
     Dropdown,
     Whisper,
-    IconButton
+    IconButton,
+    Animation
 } from 'rsuite';
 import { convertUtcToLocal } from '../../utils/dateHelpers';
 import StatusPill from '../StatusPill/StatusPill';
@@ -214,15 +215,15 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
                             {rowData =>(
                                 <Whisper placement="autoVerticalStart" trigger="click" speaker={({ onClose, left, top, className }, ref) => {
                                     const handleSelect = eventKey => {
-                                    onClose();
-                                    console.log(eventKey);
+                                        onClose();
+                                        console.log(eventKey);
                                     };
                                     return (
                                     <Popover ref={ref} className={className} style={{ left, top }} full>
                                         <Dropdown.Menu onSelect={handleSelect}>
-                                            <Dropdown.Item eventKey={1} disabled={rowData.prev_review_date != null && convertUtcToLocal(rowData.next_review_date) != convertUtcToLocal(currentTime)} onClick={()=>handleReviewTask(rowData.id)}>Review</Dropdown.Item>
-                                            <Dropdown.Item eventKey={2} onClick={()=>handleEditTask(rowData.id)}>Edit</Dropdown.Item>
-                                            <Dropdown.Item eventKey={3} onClick={()=>handleDeleteTask(rowData.id)}>Delete</Dropdown.Item>
+                                            <Dropdown.Item eventKey={1} disabled={rowData.prev_review_date != null && convertUtcToLocal(rowData.next_review_date) != convertUtcToLocal(currentTime)} onClick={()=>{handleReviewTask(rowData.id); onClose()}}>Review</Dropdown.Item>
+                                            <Dropdown.Item eventKey={2} onClick={()=>{handleEditTask(rowData.id); onClose()}}>Edit</Dropdown.Item>
+                                            <Dropdown.Item eventKey={3} onClick={()=>{handleDeleteTask(rowData.id); onClose()}}>Delete</Dropdown.Item>
                                             <Dropdown.Item eventKey={4}>Task page</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Popover>

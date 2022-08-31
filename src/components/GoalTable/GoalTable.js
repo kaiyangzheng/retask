@@ -140,7 +140,7 @@ export default function GoalTable({goals, dataLoaded, taskStats, setOpenGoalsMod
                                     <Popover ref={ref} className={className} style={{ left, top }} full>
                                         <Dropdown.Menu onSelect={handleSelect}>
                                             <Dropdown.Item eventKey={1} onClick={()=>navigate('/dashboard')}>Dashboard</Dropdown.Item>
-                                            <Dropdown.Item eventKey={2} onClick={()=>setOpenGoalsModal(true)}>Edit</Dropdown.Item>
+                                            <Dropdown.Item eventKey={2} onClick={()=>{setOpenGoalsModal(true); onClose();}}>Edit</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Popover>
                                     );

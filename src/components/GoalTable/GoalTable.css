@@ -11,3 +11,9 @@
 .goal-table-container{
     margin-top: 20px;
 }
+
+@media screen and (max-width: 768px){
+    .goal-table-content{
+        justify-content: center;
+    }
+}
