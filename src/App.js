@@ -28,6 +28,7 @@ import {
   getTaskTypes,
   getTaskStats
 } from './utils/getData';
+import axiosInstance from './utils/axiosAPI';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');

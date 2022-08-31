@@ -56,6 +56,7 @@ export default function GoalTable({goals, dataLoaded, taskStats, setOpenGoalsMod
     }
   }
   let tableHeight = (formattedGoals.length*46)+40
+
   if (!formattedGoals){
     return null;
   }
@@ -75,7 +76,7 @@ export default function GoalTable({goals, dataLoaded, taskStats, setOpenGoalsMod
                     <HeaderCell>Value</HeaderCell>
                     <Cell dataKey="value"/>
                 </Column>
-                <Column width={100}>
+                {!taskStats.message && <Column width={100}>
                     <HeaderCell>Status</HeaderCell>
                     {goals && <Cell>
                         {rowData=>{
@@ -110,7 +111,7 @@ export default function GoalTable({goals, dataLoaded, taskStats, setOpenGoalsMod
                             </div>
                         }}
                     </Cell>}
-                </Column>
+                </Column>}
                 <Column width={150}>
                     <HeaderCell>Users</HeaderCell>
                     <Cell>
