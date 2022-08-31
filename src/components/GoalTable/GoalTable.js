@@ -76,7 +76,7 @@ export default function GoalTable({goals, dataLoaded, taskStats, setOpenGoalsMod
                     <HeaderCell>Value</HeaderCell>
                     <Cell dataKey="value"/>
                 </Column>
-                {!taskStats.message && <Column width={100}>
+                {!taskStats.message && <Column width={105}>
                     <HeaderCell>Status</HeaderCell>
                     {goals && <Cell>
                         {rowData=>{
