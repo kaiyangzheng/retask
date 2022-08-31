@@ -20,8 +20,7 @@
 .border-top::before{
     content: '';
     display: block;
-    width: 50%;
-    left: 25%;
+    width: 60%;
     border-top: 1px solid;
     margin: auto;
 }
@@ -56,6 +55,11 @@
     top: 5px;
 }
 
+.goal-process-bar{
+    width: 60%;
+    margin-top: 20px;
+}
+
 .mt-20{
     margin-top: 20px;
 }
@@ -81,8 +85,7 @@
     .border-top-768::before{
         content: '';
         display: block;
-        width: 50%;
-        left: 25%;
+        width: 60%;
         border-top: 1px solid;
         margin: auto;
     }

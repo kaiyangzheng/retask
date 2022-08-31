@@ -11,7 +11,7 @@ import {
 import { 
     Panel,
     SelectPicker,
-    Placeholder
+    Placeholder,
  } from 'rsuite';
 import { convertUtcToLocal } from '../../utils/dateHelpers';
 import './ProgressLineChart.css';
@@ -25,7 +25,7 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded, tasks, t
   ]
   const [timeframe, setTimeframe] = useState('week');
   const [chartData, setChartData] = useState([]);
-  const [chartStrokeColor, setChartStrokeColor] = useState('')
+  const [chartStrokeColor, setChartStrokeColor] = useState('#1f77b4')
 
   
   const createWeeklyData = () => {
@@ -125,19 +125,15 @@ export default function ProgressLineChart({ reviewSessions, dataLoaded, tasks, t
     if (dataLoaded && reviewSessions.length > 0){
         if (timeframe === 'week'){
             setChartData(createWeeklyData());
-            setChartStrokeColor('#8884d8');
         }
         else if (timeframe === 'month'){
             setChartData(createMonthlyData());
-            setChartStrokeColor('blue');
         }
         else if (timeframe === 'year'){
             setChartData(createYearlyData());
-            setChartStrokeColor('red');
         }
         else if (timeframe === 'allTime'){
             setChartData(createAllTimeData());
-            setChartStrokeColor('#82ca9d');
         }
     }else{
         setChartData([]);
