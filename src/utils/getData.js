@@ -83,3 +83,13 @@ export async function getTaskTypes(setTaskTypes){
         console.log(err);
     })
 }
+
+export async function getTaskStats(setTaskStats){
+    return axiosInstance.get('/api/v1/task-stats/')
+    .then(res=>{
+        setTaskStats(res.data);
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+}

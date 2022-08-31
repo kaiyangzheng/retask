@@ -81,7 +81,7 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
   return (
     <Panel bordered className="task-table-panel">
         <div className="task-table-content">
-            <h1>Tasks</h1>
+            <h2>Tasks</h2>
         </div>
         <div className="task-table-container">
             { !dataLoaded ? 
@@ -145,7 +145,6 @@ export default function TaskTable({ tasks, taskTypes, dataLoaded, currentTime, u
                         <HeaderCell>Status</HeaderCell>
                         <Cell>
                             {rowData => {
-                                let displaySuccess = true;
                                 return <>
                                 <div className="status-container">
                                     {taskTypes.in_progress.map(task=>{

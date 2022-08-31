@@ -29,6 +29,11 @@
     margin-top: 20px;
 }
 
+.home-goals-container{
+    display: flex;
+    margin-top: 20px;
+}
+
 .home-more-info-container{
     margin-top: 20px;
     display: flex;

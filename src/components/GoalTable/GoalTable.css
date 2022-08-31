@@ -1,0 +1,13 @@
+.goal-table-panel{
+    width: 100%;
+    padding: 20px;
+    margin: 0px 20px;
+}
+
+.goal-table-content{
+    display: flex;
+}
+
+.goal-table-container{
+    margin-top: 20px;
+}

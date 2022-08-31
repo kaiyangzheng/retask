@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Greeting from '../../components/Greeting/Greeting';
 import Modifygroup from '../../components/ModifyGroup/ModifyGroup';
 import TaskTable from '../../components/TaskTable/TaskTable';
+import GoalTable from '../../components/GoalTable/GoalTable';
 import BreadcrumbHeader from '../../components/Breadcrumb/BreadcrumbHeader';
 import {
   useLocation
@@ -19,7 +20,7 @@ function getWindowDimensions() {
   };
 }
 
-export default function Home({ loginInfo, currentTime, users, reviewSessions, tasks, taskTypes, dataLoaded, openAddModal, setOpenAddModal, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal, setEditTaskId, setOpenEditModal, setModifyType, setOpenModifyModal, setOpenGoalsModal, goals, setGoals, theme }) {
+export default function Home({ loginInfo, currentTime, users, reviewSessions, tasks, taskTypes, taskStats, dataLoaded, openAddModal, setOpenAddModal, reloadData, setReloadData, setReviewTaskId, setReviewSessionId, setOpenReviewModal, setEditTaskId, setOpenEditModal, setModifyType, setOpenModifyModal, setOpenGoalsModal, goals, setGoals, theme }) {
   const location = useLocation();
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
@@ -51,6 +52,9 @@ export default function Home({ loginInfo, currentTime, users, reviewSessions, ta
       <div className="home-table-container">
         <TaskTable tasks={tasks} taskTypes={taskTypes} dataLoaded={dataLoaded} currentTime={currentTime} users={users} reloadData={reloadData} setReloadData={setReloadData} setReviewTaskId={setReviewTaskId} setReviewSessionId={setReviewSessionId} setOpenReviewModal={setOpenReviewModal} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>
       </div>
+      <div className="home-goals-container">
+        <GoalTable goals={goals} dataLoaded={dataLoaded} taskStats={taskStats} setOpenGoalsModal={setOpenGoalsModal}/>
+      </div>
       <div className="home-more-info-container">
         <Panel bordered className="more-info-item">
           <h4>What is spaced repetition?</h4>
@@ -58,7 +62,7 @@ export default function Home({ loginInfo, currentTime, users, reviewSessions, ta
           <p>Source: <a target="_blank" href="https://e-student.org/spaced-repetition/">Spaced Repetition: A Guide to the Technique</a></p>
         </Panel>
         <Panel bordered className="more-info-item">
-          <h4>Is it effective? How?</h4>
+          <h4>Is it effective?</h4>
           <p>Spaced repetition is effective because it inherently exploits the strenghts and weaknesses of the human brain. Our brains are not strong at memorizing over 5-7 new pieces of information at a time, but they are acute in strengthening memories encountered frequently over time. Studies have shown that spaced learning increaes information retention by 200%.</p>
           <p>Source: <a target="_blank" href="https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information">Spaced repetition: a hack to make your brain store information</a></p> 
         </Panel>

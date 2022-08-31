@@ -54,6 +54,9 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
         return () => window.removeEventListener('resize', handleResize);
       }, []);
 
+      useEffect(()=>{
+        setActive(location.pathname.slice(1, location.pathname.length));
+      }, [location])
 
     return <>
         <div style={{
@@ -140,7 +143,6 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
             <div className="bottom-nav-container" style={{
                 zIndex: 9999,
                 backgroundColor: navColor === '#000' ? 'white' : 'black',
-                borderTop: '1px solid black'
             }}>
                 <Nav activekey={active} appearance="subtle" className="bottom-nav">
                     <Nav.Item eventKey="home" as={Link} to="/home" icon={<HomeIcon/>}/>

@@ -25,7 +25,8 @@ import {
   getGoals,
   getReviewSessions,
   getFriendRequests,
-  getTaskTypes
+  getTaskTypes,
+  getTaskStats
 } from './utils/getData';
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
   const [reviewSessions, setReviewSessions] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
   const [taskTypes, setTaskTypes] = useState([]);
+  const [taskStats, setTaskStats] = useState([]);
 
   // modal 
   const [openAddModal, setOpenAddModal] = useState(false);
@@ -81,6 +83,7 @@ function App() {
       await getReviewSessions(setReviewSessions);
       await getFriendRequests(setFriendRequests);
       await getTaskTypes(setTaskTypes);
+      await getTaskStats(setTaskStats);
       setDataLoaded(true);
     }
     if (loginInfo.isLoggedIn){
@@ -148,6 +151,7 @@ function App() {
                 reviewSessions={reviewSessions}
                 tasks={tasks}
                 taskTypes={taskTypes}
+                taskStats={taskStats}
                 openAddModal={openAddModal}
                 setOpenAddModal={setOpenAddModal}
                 reloadData={reloadData}
