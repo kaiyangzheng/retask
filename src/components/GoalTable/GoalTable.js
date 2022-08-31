@@ -77,7 +77,7 @@ export default function GoalTable({goals, dataLoaded, taskStats, setOpenGoalsMod
                 </Column>
                 <Column width={100}>
                     <HeaderCell>Status</HeaderCell>
-                    <Cell>
+                    {goals && <Cell>
                         {rowData=>{
                             let total_tasks_added_ratio = taskStats.basic_info.total_tasks_added/rowData.value;
                             let average_quality_ratio = taskStats.stats.average_quality/rowData.value;
@@ -109,7 +109,7 @@ export default function GoalTable({goals, dataLoaded, taskStats, setOpenGoalsMod
                                 </div>}
                             </div>
                         }}
-                    </Cell>
+                    </Cell>}
                 </Column>
                 <Column width={150}>
                     <HeaderCell>Users</HeaderCell>
