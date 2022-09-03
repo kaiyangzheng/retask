@@ -96,7 +96,7 @@ function App() {
       await getTaskStats(setTaskStats);
       setDataLoaded(true);
     }
-    if (loginInfo.isLoggedIn && localStorage.getItem('isLoggedIn')){
+    if (loginInfo.isLoggedIn){
       getData();
     }
   }, [loginInfo, reloadData]);

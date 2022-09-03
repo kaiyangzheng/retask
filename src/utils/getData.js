@@ -27,7 +27,7 @@ export async function getGoals(setGoals){
     })
     .catch(err=>{
         console.log(err)
-        axiosInstance.post('/api/v1/goal/', {})
+        return axiosInstance.post('/api/v1/goal/', {})
         .then(res => {
           console.log(res);
         })
