@@ -17,6 +17,7 @@ import {
   useNavigate
 } from 'react-router-dom';
 import './../Login/Login.css';
+import axios from 'axios';
 import axiosInstance from '../../utils/axiosAPI';
 
 export default function Register({ setLoginInfo }) {
@@ -34,7 +35,7 @@ export default function Register({ setLoginInfo }) {
     if (user.password !== user.confirmPassword) {
       return;
     }
-    axiosInstance.post('/api/v1/user/create/', user)
+    axios.post('https://retask-api.herokuapp.com/api/v1/user/create/', user)
     .then(res => {
       axiosInstance.post('/api/v1/token/obtain/', user)
       .then(res => {
