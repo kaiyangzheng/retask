@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://127.0.0.1:8000/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Lobby</title>
+    <style>undefined</style><link rel="preconnect" href="https://fonts.googleapis.com/" crossorigin="true"><link rel="preconnect" href="https://fonts.gstatic.com/"><link rel="stylesheet" href="./hi_files/css2"></head>
+    <body>
+        <h1>Lets chat!</h1>
+        <form id="form">
+            <input type="text" name="message">
+        </form>
+        <script type="text/javascript">
+            let url = `ws://${window.location.host}/ws/socket-server/`
+
+            const chatSocket = new WebSocket(url)
+
+            chatSocket.onmessage = function(e){
+                let data = JSON.parse(e.data);
+                console.log('Data: ', data);
+            }
+
+            let form = document.getElementById('form')
+            form.addEventListener('submit', (e)=>{
+                e.preventDefault();
+                let message = e.target.message.value;
+                chatSocket.send(JSON.stringify({
+                    'message': message
+                }))
+                form.reset();
+            })  
+        </script>
+    
+</body><div></div></html>

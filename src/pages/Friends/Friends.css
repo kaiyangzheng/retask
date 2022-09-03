@@ -1,0 +1,41 @@
+.friends-container{
+    width: (100vw - 50px);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.friends-breadcrumb-container{
+    margin: 0 20px;
+    margin-top: 5px;
+}
+
+.friends-content{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.friends-list-container{
+    width: 50%;
+}
+
+.friends-list{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.friends-list > *{
+    margin-bottom: 20px;
+}
+
+.friends-button{
+    margin-top: 10px;
+}
+
+.friends-button > *{
+    margin-right: 10px;
+}

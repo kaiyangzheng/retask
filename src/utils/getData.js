@@ -100,3 +100,13 @@ export async function getTaskStats(setTaskStats){
         console.log(err);
     })
 }
+
+export async function getPersonalInfo(setPersonalInfo){
+    return axiosInstance.get('/api/v1/user/me')
+    .then(res=>{
+        setPersonalInfo(res.data);
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+}

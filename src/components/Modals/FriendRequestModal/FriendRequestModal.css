@@ -1,0 +1,68 @@
+.friend-request-title{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.received{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+    border-right: 0.5px solid;
+    padding: 5px;
+    border-radius: 5px 0px 0px 5px;
+    transition: 0.3s;
+}
+
+.sent{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+    border-left: 0.5px solid;
+    padding: 5px;
+    border-radius: 0px 5px 5px 0px;
+    transition: 0.3s;
+}
+
+.received:hover{
+    background-color: lightgrey;
+    cursor: pointer;
+}
+
+.sent:hover{
+    background-color: lightgrey;
+    cursor: pointer;
+}
+
+.selected{
+    background-color: lightgrey;
+    border-bottom: 1px solid;
+}
+
+.friend-request-content{
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.friend-request-list{
+    width: 100%;
+    margin: 0 1px;
+}
+
+.friend-request-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.friend-request-action-buttons{
+    display: flex;
+}
+
+.friend-request-action-buttons > *{
+    margin-left: 10px;
+}

@@ -15,11 +15,14 @@ import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
 import Calendar from './pages/TaskCalendar/TaskCalendar';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Friends from './pages/Friends/Friends';
 import AddModal from './components/Modals/AddModal/AddModal';
 import ReviewModal from './components/Modals/ReviewModal/ReviewModal';
 import EditModal from './components/Modals/EditModal/EditModal';
 import ModifyModal from './components/Modals/ModifyModal/ModifyModal';
 import GoalsModal from './components/Modals/GoalsModal/GoalsModal';
+import AddFriendModal from './components/Modals/AddFriendModal/AddFriendModal';
+import FriendRequestModal from './components/Modals/FriendRequestModal/FriendRequestModal';
 import {
   getUsers,
   getTasks,
@@ -27,9 +30,9 @@ import {
   getReviewSessions,
   getFriendRequests,
   getTaskTypes,
-  getTaskStats
+  getTaskStats,
+  getPersonalInfo
 } from './utils/getData';
-import axiosInstance from './utils/axiosAPI';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -47,6 +50,7 @@ function App() {
   // data 
   const [dataLoaded, setDataLoaded] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [personalInfo, setPersonalInfo] = useState({});
   const [users, setUsers] = useState({});
   const [goals, setGoals] = useState({});
   const [reviewSessions, setReviewSessions] = useState([]);
@@ -60,6 +64,8 @@ function App() {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openModifyModal, setOpenModifyModal] = useState(false);
   const [openGoalsModal, setOpenGoalsModal] = useState(false);
+  const [openAddFriendModal, setOpenAddFriendModal] = useState(false);
+  const [openFriendRequestsModal, setOpenFriendRequestsModal] = useState(false);
 
   // task actions
   const [reviewTaskId, setReviewTaskId] = useState(null);
@@ -79,7 +85,9 @@ function App() {
 
   useEffect(() => {
     const getData = async () => {
+      setDataLoaded(false);
       await getUsers(setUsers);
+      await getPersonalInfo(setPersonalInfo);
       await getTasks(setTasks);
       await getGoals(setGoals);
       await getReviewSessions(setReviewSessions);
@@ -92,6 +100,22 @@ function App() {
       getData();
     }
   }, [loginInfo, reloadData]);
+
+  //hacky; prefer websockets
+  useEffect(()=>{
+    const getData = async () => {
+      await getFriendRequests(setFriendRequests);
+      await getPersonalInfo(setPersonalInfo);
+    }
+
+    if (loginInfo.isLoggedIn){
+      if (dataLoaded){
+        getData();
+
+      }
+    }
+
+  }, [currentTime])
 
   useEffect(() => {
     if (currentTime && prevDataLoad){
@@ -135,6 +159,8 @@ function App() {
         <EditModal openEditModal={openEditModal} setOpenEditModal={setOpenEditModal} reloadData={reloadData} setReloadData={setReloadData} editTaskId={editTaskId} tasks={tasks}/>
         <ModifyModal tasks={tasks} taskTypes={taskTypes} currentTime={currentTime} users={users} dataLoaded={dataLoaded} openModifyModal={openModifyModal} setOpenModifyModal={setOpenModifyModal} type={modifyType} reloadData={reloadData} setReloadData={setReloadData} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>
         <GoalsModal openGoalsModal={openGoalsModal} setOpenGoalsModal={setOpenGoalsModal} reloadData={reloadData} setReloadData={setReloadData} goals={goals}/>
+        <AddFriendModal openAddFriendModal={openAddFriendModal} setOpenAddFriendModal={setOpenAddFriendModal} reloadData={reloadData} setReloadData={setReloadData} users={users}/>
+        <FriendRequestModal openFriendRequestsModal={openFriendRequestsModal} setOpenFriendRequestsModal={setOpenFriendRequestsModal} friendRequests={friendRequests} reloadData={reloadData} setReloadData={setReloadData} personalInfo={personalInfo} users={users} dataLoaded={dataLoaded}/>
         <BrowserRouter>
         <Appbar theme={theme} setTheme={setTheme} navColor={navColor} loginInfo={loginInfo}/>
           <Sidebar navColor={navColor} loginInfo={loginInfo} setLoginInfo={setLoginInfo}>
@@ -184,6 +210,13 @@ function App() {
                 reviewSessions={reviewSessions}
                 dataLoaded={dataLoaded}
                 currentTime={currentTime}
+              />}/>
+              <Route path="/friends" element={<Friends
+                dataLoaded={dataLoaded}
+                personalInfo={personalInfo}
+                users={users}
+                setOpenAddFriendModal={setOpenAddFriendModal}
+                setOpenFriendRequestsModal={setOpenFriendRequestsModal}
               />}/>
             </Routes>
           </Sidebar>
