@@ -27,17 +27,14 @@
 }
 
 .received:hover{
-    background-color: lightgrey;
     cursor: pointer;
 }
 
 .sent:hover{
-    background-color: lightgrey;
     cursor: pointer;
 }
 
 .selected{
-    background-color: lightgrey;
     border-bottom: 1px solid;
 }
 

@@ -21,7 +21,7 @@ function getWindowDimensions() {
     };
   }
 
-export default function Friends({users, personalInfo, dataLoaded, setOpenAddFriendModal, setOpenFriendRequestsModal}) {
+export default function Friends({users, personalInfo, dataLoaded, setOpenAddFriendModal, setOpenFriendRequestsModal, theme}) {
   const location = useLocation();
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
@@ -67,7 +67,9 @@ export default function Friends({users, personalInfo, dataLoaded, setOpenAddFrie
                         {personalInfo.friends.length == 0 &&
                             <p>No data</p>
                         }
-                    </div> : <Placeholder.Graph/>}
+                    </div> : <Placeholder.Graph style={{
+                        marginTop: '20px'
+                    }}/>}
                 </div>
             </div>
         </div>

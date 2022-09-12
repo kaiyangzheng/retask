@@ -8,7 +8,7 @@ import {
     Panel,
     PanelGroup,
 } from 'rsuite';
-import { convertUtcToLocal, secondsToHms, getDateDifference, dateDifferenceMessage } from '../../utils/dateHelpers';
+import { convertUtcToLocal, secondsToHms,  dateDifferenceMessage } from '../../utils/dateHelpers';
 import {
   useLocation 
 } from 'react-router-dom';

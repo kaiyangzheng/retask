@@ -159,7 +159,7 @@ function App() {
         <ModifyModal tasks={tasks} taskTypes={taskTypes} currentTime={currentTime} users={users} dataLoaded={dataLoaded} openModifyModal={openModifyModal} setOpenModifyModal={setOpenModifyModal} type={modifyType} reloadData={reloadData} setReloadData={setReloadData} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>
         <GoalsModal openGoalsModal={openGoalsModal} setOpenGoalsModal={setOpenGoalsModal} reloadData={reloadData} setReloadData={setReloadData} goals={goals}/>
         <AddFriendModal openAddFriendModal={openAddFriendModal} setOpenAddFriendModal={setOpenAddFriendModal} reloadData={reloadData} setReloadData={setReloadData} users={users}/>
-        <FriendRequestModal openFriendRequestsModal={openFriendRequestsModal} setOpenFriendRequestsModal={setOpenFriendRequestsModal} friendRequests={friendRequests} reloadData={reloadData} setReloadData={setReloadData} personalInfo={personalInfo} users={users} dataLoaded={dataLoaded}/>
+        <FriendRequestModal openFriendRequestsModal={openFriendRequestsModal} setOpenFriendRequestsModal={setOpenFriendRequestsModal} friendRequests={friendRequests} reloadData={reloadData} setReloadData={setReloadData} personalInfo={personalInfo} users={users} dataLoaded={dataLoaded} theme={theme}/>
         <BrowserRouter>
         <Appbar theme={theme} setTheme={setTheme} navColor={navColor} loginInfo={loginInfo}/>
           <Sidebar navColor={navColor} loginInfo={loginInfo} setLoginInfo={setLoginInfo}>

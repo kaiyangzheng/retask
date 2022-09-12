@@ -12,7 +12,7 @@ import CloseIcon from '@rsuite/icons/Close';
 import axiosInstance from '../../../utils/axiosAPI';
 import './FriendRequestModal.css';
 
-export default function FriendRequestModal({openFriendRequestsModal, setOpenFriendRequestsModal, friendRequests, reloadData, setReloadData, personalInfo, users, dataLoaded}){
+export default function FriendRequestModal({openFriendRequestsModal, setOpenFriendRequestsModal, friendRequests, reloadData, setReloadData, personalInfo, users, dataLoaded, theme}){
     const handleClose = () => {
         setOpenFriendRequestsModal(false);
     }
@@ -48,6 +48,8 @@ export default function FriendRequestModal({openFriendRequestsModal, setOpenFrie
     const [requestType, setRequestType] = useState('received')
     let receivedRequests = friendRequests.filter((request)=>request.to_user == personalInfo.id);
     let sentRequests = friendRequests.filter((request)=>request.from_user == personalInfo.id);
+
+    let tabColor = theme == 'light'? 'lightgray' : 'gray';
     return <>
         <Modal open={openFriendRequestsModal} onClose={handleClose}>
             <Modal.Header>
@@ -57,10 +59,20 @@ export default function FriendRequestModal({openFriendRequestsModal, setOpenFrie
                 <Form fluid>
                     <Form.Group>
                         <div className="friend-request-title">
-                            <div className={requestType == 'received' ? 'selected received' : 'received'} onClick={()=>setRequestType('received')}>
+                            <div className={requestType == 'received' ? 'selected received' : 'received'} onClick={()=>setRequestType('received')} style={{
+                                backgroundColor: requestType == 'received' && tabColor,
+                                '&:hover': {
+                                    backgroundColor: tabColor,
+                                }
+                            }}>
                                 Received
                             </div>
-                            <div className={requestType == 'sent' ? "selected sent" : "sent"} onClick={()=>setRequestType('sent')}>
+                            <div className={requestType == 'sent' ? "selected sent" : "sent"} onClick={()=>setRequestType('sent')} style={{
+                                backgroundColor: requestType == 'sent' && tabColor,
+                                '&:hover': {
+                                    backgroundColor: tabColor,
+                                }
+                            }}>
                                 Sent
                             </div>
                         </div>
