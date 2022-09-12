@@ -81,9 +81,6 @@ export default function FriendRequestModal({openFriendRequestsModal, setOpenFrie
                                 {requestType == 'received' ? <List bordered className="friend-request-list">
                                     {receivedRequests.map((request)=>{
                                         let user = users.filter((user)=>user.id == request.from_user)[0];
-                                        if (!user){
-                                            return null;
-                                        }
                                         return <List.Item className="friend-request-item">
                                             <div className="user-pill" style={{
                                                 backgroundColor: stringToColor(user.username)

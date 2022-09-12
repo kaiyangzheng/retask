@@ -85,7 +85,6 @@ function App() {
 
   useEffect(() => {
     const getData = async () => {
-      setDataLoaded(false);
       await getUsers(setUsers);
       await getPersonalInfo(setPersonalInfo);
       await getTasks(setTasks);
