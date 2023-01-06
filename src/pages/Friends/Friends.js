@@ -21,7 +21,7 @@ function getWindowDimensions() {
     };
   }
 
-export default function Friends({users, personalInfo, dataLoaded, setOpenAddFriendModal, setOpenFriendRequestsModal, theme}) {
+export default function Friends({users, personalInfo, dataLoaded, setOpenAddFriendModal, setOpenFriendRequestsModal}) {
   const location = useLocation();
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 

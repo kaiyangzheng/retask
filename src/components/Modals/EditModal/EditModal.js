@@ -12,7 +12,7 @@ import Checkmark from '../../../svg/Checkmark';
 import axiosInstance from '../../../utils/axiosAPI';
 import './EditModal.css';
 
-export default function EditModal({openEditModal, setOpenEditModal, reloadData, setReloadData, editTaskId, tasks}){
+export default function EditModal({openEditModal, setOpenEditModal, reloadData, setReloadData, editTaskId, tasks, setShowSpinner}){
   let selectedTask = tasks.filter(task=>task.id==editTaskId)[0];
 
   const [task, setTask] = useState({
@@ -27,6 +27,7 @@ export default function EditModal({openEditModal, setOpenEditModal, reloadData, 
   }
 
   const handleUpdateTask = async () => {
+    setShowSpinner(true);
     return axiosInstance.put(`/api/v1/task/${editTaskId}/`, task)
     .then(res => {
         console.log(res);

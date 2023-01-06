@@ -20,7 +20,7 @@ import './../Login/Login.css';
 import axios from 'axios';
 import axiosInstance from '../../utils/axiosAPI';
 
-export default function Register({ setLoginInfo }) {
+export default function Register({ setLoginInfo, setShowSpinner }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [user, setUser] = useState({
     'username': '',
@@ -35,6 +35,7 @@ export default function Register({ setLoginInfo }) {
     if (user.password !== user.confirmPassword) {
       return;
     }
+    setShowSpinner(true);
     axios.post('https://retask-api.herokuapp.com/api/v1/user/create/', user)
     .then(res => {
       axiosInstance.post('/api/v1/token/obtain/', user)
@@ -70,12 +71,6 @@ export default function Register({ setLoginInfo }) {
         </div>
         <div className="login-form-container">
           <form className="login-form">
-            <Button appearance="ghost" className="login-form-button">
-              <span className="login-form-button-text"><GoogleIcon/> Continue with Google</span>
-            </Button>
-            <div className="login-form-divider">
-              <HrTextMiddle text="or"/>
-            </div>
             <Whisper trigger="focus" speaker={<Tooltip>Required</Tooltip>}>
               <Input placeholder="Username" style={{
                 marginTop: '40px',

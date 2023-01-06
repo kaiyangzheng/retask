@@ -40,6 +40,10 @@ export default function GoalTable({goals, dataLoaded, taskStats, setOpenGoalsMod
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  if (!goals){
+    return null;
+  }
+
   let formattedGoals = [];
   let goalNames = {
     'total_added': 'Total tasks added',

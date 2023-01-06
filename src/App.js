@@ -49,6 +49,7 @@ function App() {
 
   // data 
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [personalInfo, setPersonalInfo] = useState({});
   const [users, setUsers] = useState({});
@@ -94,6 +95,7 @@ function App() {
       await getTaskTypes(setTaskTypes);
       await getTaskStats(setTaskStats);
       setDataLoaded(true);
+      setShowSpinner(false);
     }
     if (loginInfo.isLoggedIn){
       getData();
@@ -152,9 +154,9 @@ function App() {
   return (
     <CustomProvider theme={theme}>
       <div className="App">
-        <AddModal openAddModal={openAddModal} setOpenAddModal={setOpenAddModal} reloadData={reloadData} setReloadData={setReloadData} setOpenReviewModal={setOpenReviewModal} setReviewTaskId={setReviewTaskId} setReviewSessionId={setReviewSessionId}/>
-        <ReviewModal openReviewModal={openReviewModal} setOpenReviewModal={setOpenReviewModal} reloadData={reloadData} setReloadData={setReloadData} reviewTaskId={reviewTaskId} reviewSessionId={reviewSessionId} tasks={tasks}/>
-        <EditModal openEditModal={openEditModal} setOpenEditModal={setOpenEditModal} reloadData={reloadData} setReloadData={setReloadData} editTaskId={editTaskId} tasks={tasks}/>
+        <AddModal openAddModal={openAddModal} setOpenAddModal={setOpenAddModal} reloadData={reloadData} setReloadData={setReloadData} setOpenReviewModal={setOpenReviewModal} setReviewTaskId={setReviewTaskId} setReviewSessionId={setReviewSessionId} setShowSpinner={setShowSpinner}/>
+        <ReviewModal openReviewModal={openReviewModal} setOpenReviewModal={setOpenReviewModal} reloadData={reloadData} setReloadData={setReloadData} reviewTaskId={reviewTaskId} reviewSessionId={reviewSessionId} tasks={tasks} setShowSpinner={setShowSpinner}/>
+        <EditModal openEditModal={openEditModal} setOpenEditModal={setOpenEditModal} reloadData={reloadData} setReloadData={setReloadData} editTaskId={editTaskId} tasks={tasks} setShowSpinner={setShowSpinner}/>
         <ModifyModal tasks={tasks} taskTypes={taskTypes} currentTime={currentTime} users={users} dataLoaded={dataLoaded} openModifyModal={openModifyModal} setOpenModifyModal={setOpenModifyModal} type={modifyType} reloadData={reloadData} setReloadData={setReloadData} setEditTaskId={setEditTaskId} setOpenEditModal={setOpenEditModal}/>
         <GoalsModal openGoalsModal={openGoalsModal} setOpenGoalsModal={setOpenGoalsModal} reloadData={reloadData} setReloadData={setReloadData} goals={goals}/>
         <AddFriendModal openAddFriendModal={openAddFriendModal} setOpenAddFriendModal={setOpenAddFriendModal} reloadData={reloadData} setReloadData={setReloadData} users={users}/>
@@ -166,9 +168,11 @@ function App() {
               <Route path="/" element={<Landing loginInfo={loginInfo}/>}/>
               <Route path="/login" element={<Login
                 setLoginInfo={setLoginInfo}
+                setShowSpinner={setShowSpinner}
               />}/>
               <Route path="/register" element={<Register 
                 setLoginInfo={setLoginInfo}
+                setShowSpinner={setShowSpinner}
               />} />
               <Route path="/home" element={<Home
                 loginInfo={loginInfo}

@@ -11,7 +11,7 @@ import {
 import Checkmark from '../../../svg/Checkmark';
 import axiosInstance from '../../../utils/axiosAPI';
 
-export default function AddModal({openAddModal, setOpenAddModal, reloadData, setReloadData, setOpenReviewModal, setReviewTaskId, setReviewSessionId}) {
+export default function AddModal({openAddModal, setOpenAddModal, reloadData, setReloadData, setOpenReviewModal, setReviewTaskId, setReviewSessionId, setShowSpinner}) {
   const [task, setTask] = useState({
     'name': '',
     'description': ''
@@ -28,6 +28,7 @@ export default function AddModal({openAddModal, setOpenAddModal, reloadData, set
   }
 
   const handleAddTask = async (review) => {
+    setShowSpinner(true);
     return axiosInstance.post('/api/v1/task/', task)
     .then(res => {
         console.log(res);
@@ -48,6 +49,7 @@ export default function AddModal({openAddModal, setOpenAddModal, reloadData, set
 
   const handleAddAndCompleteTask = async () => {
     let addedTask = await handleAddTask(true);
+    setShowSpinner(true);
     return axiosInstance.post(`/api/v1/review-session/${addedTask.data.id}/`)
     .then(res => {
         setTask({

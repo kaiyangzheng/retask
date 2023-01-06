@@ -15,7 +15,7 @@ import PauseIcon from '@rsuite/icons/legacy/Pause';
 import PlayIcon from '@rsuite/icons/legacy/Play';
 import './ReviewModal.css';
 
-export default function ReviewModal({openReviewModal, setOpenReviewModal, reloadData, setReloadData, reviewTaskId, reviewSessionId, tasks}) {
+export default function ReviewModal({openReviewModal, setOpenReviewModal, reloadData, setReloadData, reviewTaskId, reviewSessionId, tasks, setShowSpinner}) {
   const [quality, setQuality] = useState(0);
   const [stopwatch, setStopwatch] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -50,6 +50,7 @@ export default function ReviewModal({openReviewModal, setOpenReviewModal, reload
   }
 
   const handleCompleteReview = async () => {
+    setShowSpinner(true);
     return axiosInstance.put(`/api/v1/review-session/${reviewTaskId}/${reviewSessionId}/`, {
         'quality': quality 
     })

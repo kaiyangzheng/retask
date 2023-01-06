@@ -19,7 +19,7 @@ import {
 } from 'react-router-dom';
 import './Login.css'
 
-export default function Login({ setLoginInfo }) {
+export default function Login({ setLoginInfo, setShowSpinner }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [user, setUser] = useState({
     'username': '',
@@ -29,6 +29,7 @@ export default function Login({ setLoginInfo }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setShowSpinner(true);
     axiosInstance.post('/api/v1/token/obtain/', user)
     .then(res => {
       axiosInstance.defaults.headers['Authorization'] = 'JWT ' + res.data.access
@@ -61,12 +62,6 @@ export default function Login({ setLoginInfo }) {
         </div>
         <div className="login-form-container">
           <form className="login-form">
-            <Button appearance="ghost" className="login-form-button">
-              <span className="login-form-button-text"><GoogleIcon/> Continue with Google</span>
-            </Button>
-            <div className="login-form-divider">
-              <HrTextMiddle text="or"/>
-            </div>
             <Whisper trigger="focus" speaker={<Tooltip>Required</Tooltip>}>
               <Input placeholder="Username" style={{
                 marginTop: '40px',

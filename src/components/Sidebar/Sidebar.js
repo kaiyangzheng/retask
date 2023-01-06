@@ -91,7 +91,6 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
                                     }} onClick={()=>setActive('calendar')}>    
                                 Calendar 
                             </Nav.Item>
-                            <hr />
                             <Nav.Item eventKey="friends" as={Link} to="/friends" icon={<PeoplesIcon style={{
                                 color: active!='friends' && navColor,    
                                 }}/>} style={{
@@ -99,35 +98,7 @@ export default function Sidebar({ children, navColor, loginInfo, setLoginInfo })
                                     }} onClick={()=>setActive('friends')}>
                                 Friends 
                             </Nav.Item>
-                            <Nav.Item eventKey="chat" as={Link} to="/chat" icon={<MessageIcon style={{
-                                color: active!='chat' && navColor,    
-                                }}/>} style={{
-                                    color: navColor,    
-                                    }} onClick={()=>setActive('chat')}>
-                                Chat 
-                            </Nav.Item>
-                            <Nav.Item eventKey="collaborations" as={Link} to="/collaborations" icon={<BranchIcon style={{
-                                color: active!='collaborations' && navColor,    
-                                }}/>} style={{
-                                    color: navColor,    
-                                    }} onClick={()=>setActive('collaborations')}>
-                                Collaborations
-                            </Nav.Item>
-                            <hr />
-                            <Nav.Item eventKey="settings" as={Link} to="/settings" icon={<GearIcon style={{
-                                color: active!='settings' && navColor,    
-                                }}/>} style={{
-                                    color: navColor
-                                    }} onClick={()=>setActive('settings')}>
-                                Settings
-                            </Nav.Item>
-                            <Nav.Item eventKey="profile" as={Link} to="/profile" icon={<UserInfoIcon style={{
-                                color: active!='profile' && navColor,    
-                                }}/>} style={{
-                                    color: navColor,    
-                                    }} onClick={()=>setActive('profile')}>
-                                Account
-                            </Nav.Item>
+                            <hr/>
                             <Nav.Item eventKey="logout" icon={<ExitIcon style={{
                                 color: navColor,    
                                 }}/>} style={{
